@@ -1,26 +1,24 @@
 package com.project.pseudotrade;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 public class StocksActivity extends AppCompatActivity {
 
     SearchView stockSearchBar;
     ListView stocksListView;
-    ArrayList<String> stockList;
+    ArrayList<Stock> stockList;
     StockListAdapter stockListAdapter;
 
     @Override
@@ -36,13 +34,20 @@ public class StocksActivity extends AppCompatActivity {
     }
 
     private void populateStockList() {
-        stockList.add("Apple");
-        stockList.add("Google");
-        stockList.add("Microsoft");
-        stockList.add("Oracle");
+        // TEMPORARY DATA
+        Stock stock1 = new Stock("Apple", 1, 500.00);
+        stockList.add(stock1);
+        Stock stock2 = new Stock("Google", 3, 250.00);
+        stockList.add(stock2);
+        Stock stock3 = new Stock("Microsoft", 2, 300.00);
+        stockList.add(stock3);
+        Stock stock4 = new Stock("Oracle", 5, 50.00);
+        stockList.add(stock4);
+        Stock stock5 = new Stock("Facebook", 6, 20.00);
+        stockList.add(stock5);
     }
 
-    private class StockListAdapter extends ArrayAdapter<String> {
+    private class StockListAdapter extends ArrayAdapter<Stock> {
         public StockListAdapter(Context context) {
             super(context, 0);
         }
@@ -51,16 +56,41 @@ public class StocksActivity extends AppCompatActivity {
             return stockList.size();
         }
 
-        public String getItem(int position) {
+        public Stock getItem(int position) {
             return stockList.get(position);
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = StocksActivity.this.getLayoutInflater();
             View result = inflater.inflate(R.layout.stock_row, null);
-            TextView stockRow = (TextView) result.findViewById(R.id.stock_row);
-            stockRow.setText(getItem(position));
+            TextView stockRowName = (TextView) result.findViewById(R.id.stock_name);
+            stockRowName.setText(getItem(position).getName());
+            TextView stockRowHoldingsValue = (TextView) result.findViewById(R.id.holdings_value);
+            String stockValue = String.format("$%.02f", getItem(position).getHoldingsValue());
+            stockRowHoldingsValue.setText(stockValue);
             return result;
         }
+    }
+
+    private class Stock {
+        private final String name;
+        private final int quantity;
+        private final double currentPrice;
+        private final double holdingsValue;
+
+        public Stock(String name, int quantity, double currentPrice) {
+            this.name = name;
+            this.quantity = quantity;
+            this.currentPrice = currentPrice;
+            this.holdingsValue = this.quantity * this.currentPrice;
+        }
+
+        public String getName() { return this.name; }
+
+        public int getQuantity() { return this.quantity; }
+
+        public double getCurrentPrice() { return this.currentPrice; }
+
+        public double getHoldingsValue() { return this.holdingsValue; }
     }
 }
