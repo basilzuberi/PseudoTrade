@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("LoginEmail", mEmailAddress.getText().toString()); //we add the string from LoginText to SharedPreferance (email.xml)
                 editor.apply();
 
-                Intent loginActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent loginActivityIntent = new Intent(LoginActivity.this, StocksActivity.class);
                 startActivity(loginActivityIntent);
             }
         });
