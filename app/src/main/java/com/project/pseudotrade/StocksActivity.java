@@ -68,6 +68,12 @@ public class StocksActivity extends AppCompatActivity {
             TextView stockRowHoldingsValue = (TextView) result.findViewById(R.id.holdings_value);
             String stockValue = String.format("$%.02f", getItem(position).getHoldingsValue());
             stockRowHoldingsValue.setText(stockValue);
+            TextView stockRowQuantity = (TextView) result.findViewById(R.id.stock_quantity);
+            String stockUnits = String.format("%d units", getItem(position).quantity);
+            stockRowQuantity.setText(stockUnits);
+            TextView stockRowPrice = (TextView) result.findViewById(R.id.stock_price);
+            String stockPrice = String.format("$%.02f", getItem(position).getCurrentPrice());
+            stockRowPrice.setText(stockPrice);
             return result;
         }
     }
