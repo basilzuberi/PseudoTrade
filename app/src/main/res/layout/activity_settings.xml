@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="287dp"
+        android:layout_marginTop="300dp"
         android:text="Theme"
         android:textColor="#5603AD"
         android:textSize="18sp"
@@ -35,7 +35,7 @@
         android:id="@+id/dark_theme_switch"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="287dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="127dp"
         android:text="Dark Theme"
         android:textColor="#5603AD"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/settings_currency_spinner"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="155dp"
@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/settings_country_spinner"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="115dp"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settings_title" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/settings_app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="195dp"
@@ -120,8 +120,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/settings_set_username"
         android:layout_width="132dp"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="235dp"
         android:layout_marginEnd="127dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +132,7 @@
         android:id="@+id/settings_account_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="327dp"
+        android:layout_marginTop="345dp"
         android:text="Account"
         android:textColor="#5603AD"
         android:textSize="20sp"
@@ -144,9 +145,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="500dp"
         android:layout_marginEnd="19dp"
-        android:background="#00FA0B0B"
+        android:background="#FA0B0B"
         android:backgroundTint="#CA0404"
         android:text="Change Email"
         app:layout_constraintEnd_toStartOf="@+id/settings_reset_data"
@@ -158,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="500dp"
         android:layout_marginEnd="80dp"
         android:background="#FA0B0B"
         android:backgroundTint="#CA0404"
@@ -172,10 +173,23 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="57dp"
-        android:layout_marginTop="392dp"
+        android:layout_marginTop="450dp"
         android:layout_marginEnd="57dp"
         android:text="WARNING! The following actions are not reversible, proceed with caution!"
         android:textColor="#FB0000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settings_signout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="385dp"
+        android:background="#F44336"
+        android:backgroundTint="#ECECEC"
+        android:text="Signout"
+        android:textColor="#5603AD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

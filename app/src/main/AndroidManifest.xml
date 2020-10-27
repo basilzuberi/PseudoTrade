@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PseudoTrade">
         <activity android:name=".SettingsActivity"><intent-filter>
+
+        </intent-filter></activity>
+        <activity android:name=".MainActivity">
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".MainActivity">
-
         </activity>
     </application>
 
