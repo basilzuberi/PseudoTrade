@@ -1,14 +1,18 @@
 package com.project.pseudotrade;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +34,15 @@ public class StocksActivity extends AppCompatActivity {
         stockList = new ArrayList<>();
         stockListAdapter = new StockListAdapter(this);
         stocksListView.setAdapter(stockListAdapter);
+        stocksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Stock stock = stockListAdapter.getItem(position);
+                String tempMessage = String.format("A detailed page for %s will be shown eventually...", stock.getName());
+                Toast toast = Toast.makeText(StocksActivity.this, tempMessage, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
         populateStockList();
     }
 
