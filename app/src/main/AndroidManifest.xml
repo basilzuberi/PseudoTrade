@@ -10,17 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PseudoTrade">
 
-        <activity android:name=".SettingsActivity">
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
+
+
+        </activity>
+        <activity android:name=".SettingsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
 
         </activity>
         <activity android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".StocksActivity" />
+        <activity android:name=".StocksActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"/>
     </application>
 
 </manifest>
