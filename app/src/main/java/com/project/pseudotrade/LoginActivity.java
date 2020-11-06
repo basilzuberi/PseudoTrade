@@ -43,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
 
         mBtnLogin.setOnClickListener(v -> signIn());
 
+        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startSignUpActivity = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(startSignUpActivity); //goto MainActivity
+            }
+        });
+
     }
 
     private void signIn() {
