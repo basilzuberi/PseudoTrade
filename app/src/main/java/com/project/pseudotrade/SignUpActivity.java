@@ -8,17 +8,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -42,7 +50,10 @@ public class SignUpActivity extends AppCompatActivity {
         mBtnSignUp = findViewById(R.id.btnSignUpConfirm);
 
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
-        mBtnSignUp.setOnClickListener(v -> signUp());
+        mBtnSignUp.setOnClickListener(v -> {
+            signUp();
+            hideKeyboard(v);
+        });
 
 
     }
@@ -53,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
         String email = mEmailAddress.getText().toString();
         String password = mPassword.getText().toString();
         String username = mUserName.getText().toString();
+        View contextView = findViewById(R.id.btnSignUpConfirm);
         String TAG = "SignUp";
 
         if(email.equals("") || password.equals("") || username.equals("")){
@@ -73,15 +85,33 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
                             signUpSuccess(user,username);
+
+
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "The email address is already in use by another account",
-                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+                            //EXCEPTIONS for Invalid SignUp
+                            try{
+
+                                throw Objects.requireNonNull(task.getException());
+
+                            }catch (FirebaseAuthWeakPasswordException weakPassword){ //WEAK PASSWORD
+
+//                                Toast.makeText(SignUpActivity.this, "Error Signing Up, Weak Password.", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(contextView, "Couldn't Sign you up: Choose a stronger password!", Snackbar.LENGTH_SHORT)
+                                        .show();
+
+                            }catch(FirebaseAuthInvalidCredentialsException malformedEmail){
+                                Snackbar.make(contextView, "Couldn't Sign you up: Invalid Email Entry!", Snackbar.LENGTH_SHORT)
+                                        .show();
+                            }catch (FirebaseAuthUserCollisionException existEmail){
+                                Snackbar.make(contextView, "Couldn't Sign you up: Email Already Exists!", Snackbar.LENGTH_SHORT)
+                                        .show();
+                            }
+                            catch (Exception e) {
+                                Log.d(TAG, "onComplete: " + e.getMessage());
+                            }
+
                         }
 
-                        // ...
                     }
                 });
     }
@@ -98,12 +128,16 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabaseReference.child(userID).setValue(userHelper);
 
         editor.putString("LoginEmail", user.getEmail()); //we add the string from SignedUpUsers Email to SharedPreferences (LoginActivityShared.xml)
-        editor.putString("UserName", user.getDisplayName()); //we add the string from SignedUpUsers DisplayName to SharedPreferences (LoginActivityShared.xml)
         editor.apply();
 
 
         Intent startMainActivity = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(startMainActivity); //goto MainActivity
         finish();
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
 }

@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
         mEmailAddress.setText(mSharedPreference.getString("LoginEmail",""));
-
         mBtnLogin.setOnClickListener(v -> signIn());
 
         mBtnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
     private void signInSuccess(FirebaseUser user) {
         SharedPreferences.Editor editor = mSharedPreference.edit(); //edit shared Preferences
         editor.putString("LoginEmail", user.getEmail()); //we add the string from LoggedInUsers Email to SharedPreferences (LoginActivityShared.xml)
-        editor.putString("UserName", user.getDisplayName()); //we add the string from LoggedInUsers DisplayName to SharedPreferences (LoginActivityShared.xml)
         editor.apply();
 
         Intent startMainActivity = new Intent(LoginActivity.this, MainActivity.class);
