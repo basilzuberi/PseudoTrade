@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C2F8CB"
+    android:background="#263238"
     tools:context=".SettingsActivity">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Settings"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="300dp"
         android:text="Theme"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
         android:layout_marginTop="300dp"
         android:layout_marginEnd="127dp"
         android:text="Dark Theme"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="157dp"
         android:text="Currency"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="115dp"
         android:text="Country"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Simulator"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="195dp"
         android:text="App"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +114,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="235dp"
         android:text="Username"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -134,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="345dp"
         android:text="Account"
-        android:textColor="#5603AD"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -147,8 +147,9 @@
         android:layout_marginStart="76dp"
         android:layout_marginTop="500dp"
         android:layout_marginEnd="19dp"
-        android:background="#FA0B0B"
-        android:backgroundTint="#CA0404"
+        android:background="#000000"
+        android:backgroundTint="#FFEA00 "
+        android:textColor="#000000"
         android:text="Change Email"
         app:layout_constraintEnd_toStartOf="@+id/settings_reset_data"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,8 +162,9 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="500dp"
         android:layout_marginEnd="80dp"
-        android:background="#FA0B0B"
-        android:backgroundTint="#CA0404"
+        android:background="#000000"
+        android:backgroundTint="#FFEA00 "
+        android:textColor="#000000"
         android:text="RESET DATA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_change_email"
@@ -176,7 +178,7 @@
         android:layout_marginTop="450dp"
         android:layout_marginEnd="57dp"
         android:text="WARNING! The following actions are not reversible, proceed with caution!"
-        android:textColor="#FB0000"
+        android:textColor="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

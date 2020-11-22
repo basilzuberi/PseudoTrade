@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBtnSettingsPage = findViewById(R.id.Settings_page);
-        mBtnStocksPage = findViewById(R.id.Stock_page);
+       // mBtnStocksPage = findViewById(R.id.Stock_page);
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);
 //        TabLayout tabMain = findViewById(R.id.Main_page);
