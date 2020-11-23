@@ -7,18 +7,15 @@
     android:layout_gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#263238"
     tools:context=".LoginActivity">
 
 
-
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/output_onlinepngtools" />
+        android:id="@+id/imageView3"
+        android:layout_width="190dp"
+        android:layout_height="294dp"
+        app:srcCompat="@drawable/_2457288_removebg_preview_copy_1" />
 
     <EditText
         android:id="@+id/txtEmailAddress"

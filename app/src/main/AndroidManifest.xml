@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PseudoTrade">
-        <activity android:name=".SignUpActivity"></activity>
+
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +29,8 @@
         <activity
             android:name=".StocksActivity"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+
+
     </application>
 
 </manifest>

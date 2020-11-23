@@ -7,6 +7,7 @@
     android:layout_gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#263238"
     tools:context=".SignUpActivity">
 
 
@@ -27,6 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:autofillHints="email"
         android:ems="10"
+        android:textColor="#FFFFFF"
         android:layout_margin="5dp"
         android:hint="Email Address"
         android:inputType="textEmailAddress" />
@@ -35,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
         android:autofillHints="email"
         android:ems="10"
         android:layout_margin="5dp"
@@ -47,6 +50,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
         android:hint="Password"
         android:layout_margin="5dp"
         android:autofillHints="password"
