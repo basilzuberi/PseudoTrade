@@ -11,27 +11,24 @@
     tools:context=".SignUpActivity">
 
 
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/output_onlinepngtools" />
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        app:srcCompat="@drawable/_2457288_removebg_preview_copy_1" />
 
     <EditText
         android:id="@+id/txtSignUpEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:autofillHints="email"
         android:ems="10"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
         android:hint="Email Address"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF" />
+
     <EditText
         android:id="@+id/txtSignUpDisplayName"
         android:layout_width="match_parent"

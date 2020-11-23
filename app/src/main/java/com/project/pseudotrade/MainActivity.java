@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnSettingsPage = findViewById(R.id.Settings_page);
         Investopedia = (ImageButton)findViewById(R.id.question_mark);
 
+
        // mBtnStocksPage = findViewById(R.id.Stock_page);
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentz);
             }
         });
+
 
 
 

@@ -11,14 +11,15 @@
         android:theme="@style/Theme.PseudoTrade">
 
         <activity android:name=".LoginActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".SettingsActivity"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
