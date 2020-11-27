@@ -11,16 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PseudoTrade">
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity">
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +32,8 @@
         </activity>
         <activity
             android:name=".StocksActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
