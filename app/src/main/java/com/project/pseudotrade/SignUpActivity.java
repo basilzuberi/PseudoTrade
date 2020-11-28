@@ -130,8 +130,11 @@ public class SignUpActivity extends AppCompatActivity {
         editor.putString("LoginEmail", user.getEmail()); //we add the string from SignedUpUsers Email to SharedPreferences (LoginActivityShared.xml)
         editor.apply();
 
+        Bundle userDataBundle = new Bundle(); // pass the Uid to MainActivity
+        userDataBundle.putString("userID", userID);
 
         Intent startMainActivity = new Intent(SignUpActivity.this, MainActivity.class);
+        startMainActivity.putExtras(userDataBundle);
         startActivity(startMainActivity); //goto MainActivity
         finish();
     }

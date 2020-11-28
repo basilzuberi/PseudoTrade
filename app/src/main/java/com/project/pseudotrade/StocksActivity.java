@@ -3,6 +3,7 @@ package com.project.pseudotrade;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,14 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StocksActivity extends AppCompatActivity {
 
@@ -31,10 +40,17 @@ public class StocksActivity extends AppCompatActivity {
     ListView stocksListView;
     ArrayList<Stock> stockList;
     StockListAdapter stockListAdapter;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mDatabaseReference;
 
-    String[] stockSymbols;
+    String userID;
+    HashMap<String, Integer> holdings;
+    Double cashBalance;
+
+    ArrayList<String> stockSymbols;
     ArrayList<Double> stockPrices;
 
+    private static final String ACTIVITY_NAME = "StocksActivity";
     private static final String ALPHA_KEY = "PWTO0F2LFB70DMQ5";
 
     @Override
@@ -56,19 +72,64 @@ public class StocksActivity extends AppCompatActivity {
             }
         });
 
-        // TEMP DATA
-        stockSymbols = new String[]{"AAPL", "GOOGL", "MSFT", "ORCL", "FB"};
-        GetCurrentPrices getPrices = new GetCurrentPrices();
-        getPrices.execute(stockSymbols);
+        Bundle userDataBundle = getIntent().getExtras(); // Get the current user's UserID
+        if (userDataBundle != null)
+            userID = userDataBundle.getString("userID");
+        holdings = new HashMap<>();
+        stockSymbols = new ArrayList<>();
+
+        mDatabase = FirebaseDatabase.getInstance(); // Get current user's balance and portfolio holdings
+        mDatabaseReference = mDatabase.getReference("Users");
+        GetUserData(mDatabaseReference);
     }
 
-    class GetCurrentPrices extends AsyncTask<String[], Void, ArrayList<Double>> {
+    private void GetUserData(DatabaseReference mDatabaseReference) {
+        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("cashBalance");
+        balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cashBalance = snapshot.getValue(Double.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        DatabaseReference holdingsRef = mDatabaseReference.child(userID).child("holdings");
+        holdingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()) {
+                    String stockSymbol = ds.getKey();
+                    Integer stockQuantity = Math.toIntExact((Long) ds.getValue());
+                    Log.d(ACTIVITY_NAME, "Stock symbol is " + stockSymbol + " and quantity owned is " + stockQuantity);
+                    holdings.put(stockSymbol, stockQuantity);
+                    Log.d(ACTIVITY_NAME, stockSymbol + " was added to holdings with quantity " + stockQuantity);
+                }
+
+                for (String stockHeld: holdings.keySet()) {
+                    if (!stockHeld.equals("PlaceholderStock"))
+                        stockSymbols.add(stockHeld);
+                }
+
+                GetCurrentPrices getPrices = new GetCurrentPrices();
+                getPrices.execute(stockSymbols);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    class GetCurrentPrices extends AsyncTask<ArrayList<String>, Void, ArrayList<Double>> {
 
         @Override
-        protected ArrayList<Double> doInBackground(String[]... strings) {
+        protected ArrayList<Double> doInBackground(ArrayList<String>... arrayLists) {
             ArrayList<Double> prices = new ArrayList<>();
 
-            for (String symbol: strings[0]) {
+            for (String symbol: arrayLists[0]) {
                 Double price = null;
                 try {
                     price = getPrice(symbol);
@@ -84,11 +145,12 @@ public class StocksActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Double> doubles) {
             stockPrices = doubles;
-            populateStockList(stockPrices);
+            populateStockList(stockSymbols, stockPrices);
         }
 
         private Double getPrice(String symbol) throws IOException, JSONException {
             URL alphaURL = new URL("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=1min&apikey=" + ALPHA_KEY);
+            // URL alphaURL = new URL("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
             HttpURLConnection connection = (HttpURLConnection)alphaURL.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -106,24 +168,18 @@ public class StocksActivity extends AppCompatActivity {
                 JSONObject jsonResult = new JSONObject(result.toString());
                 String latestTime = jsonResult.getJSONObject("Meta Data").getString("3. Last Refreshed");
                 Double latestPrice = Double.valueOf(jsonResult.getJSONObject("Time Series (1min)").getJSONObject(latestTime).getString("4. close"));
+                // Double latestPrice = Double.valueOf(jsonResult.getJSONObject("Time Series (5min)").getJSONObject(latestTime).getString("4. close"));
                 latestPrice = Math.round(latestPrice * 100.0) / 100.0;
                 return latestPrice;
             }
         }
     }
 
-    private void populateStockList(ArrayList<Double> prices) {
-        // TEMPORARY DATA
-        Stock stock1 = new Stock("Apple", 1, prices.get(0));
-        stockList.add(stock1);
-        Stock stock2 = new Stock("Google", 3, prices.get(1));
-        stockList.add(stock2);
-        Stock stock3 = new Stock("Microsoft", 2, prices.get(2));
-        stockList.add(stock3);
-        Stock stock4 = new Stock("Oracle", 5, prices.get(3));
-        stockList.add(stock4);
-        Stock stock5 = new Stock("Facebook", 6, prices.get(4));
-        stockList.add(stock5);
+    private void populateStockList(ArrayList<String> symbols, ArrayList<Double> prices) {
+        for (int i = 0; i < symbols.size(); i++) {
+            Stock stock = new Stock(symbols.get(i), holdings.get(symbols.get(i)), prices.get(i));
+            stockList.add(stock);
+        }
         stockListAdapter.notifyDataSetChanged();
     }
 

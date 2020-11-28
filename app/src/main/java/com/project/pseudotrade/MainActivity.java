@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     Button mBtnSettingsPage;
     Button mBtnStocksPage;
     Button mBtnMainPage;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mDatabaseReference;
+    String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
         mBtnSettingsPage = findViewById(R.id.Settings_page);
         mBtnStocksPage = findViewById(R.id.Stock_page);
+
+        mDatabase = FirebaseDatabase.getInstance(); //database Ref
+        mDatabaseReference = mDatabase.getReference("Users");
+        Bundle userDataBundle = getIntent().getExtras();
+        if (userDataBundle != null)
+            userID = userDataBundle.getString("userID");
+
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);
 //        TabLayout tabMain = findViewById(R.id.Main_page);
@@ -33,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
         mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle userDataBundle = new Bundle();
+                userDataBundle.putString("userID", userID);
                 Intent stocksIntent = new Intent(MainActivity.this, StocksActivity.class);
+                stocksIntent.putExtras(userDataBundle);
                 startActivity(stocksIntent);
             }
         });
