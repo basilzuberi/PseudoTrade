@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ public class StockDetailActivity extends AppCompatActivity {
     TextView stockLowTextView;
     TextView stockVolumeTextView;
     ProgressBar getDataProgressBar;
+    WebView stockChartViewer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class StockDetailActivity extends AppCompatActivity {
         stockVolumeTextView = findViewById(R.id.stock_volume);
         getDataProgressBar = findViewById(R.id.get_data_progress_bar);
         getDataProgressBar.setVisibility(View.INVISIBLE);
+        stockChartViewer = findViewById(R.id.stock_chart_viewer);
 
         Bundle stockDataBundle = getIntent().getExtras();   // Get stock info from StocksActivity
         if (stockDataBundle != null) {
@@ -68,9 +72,16 @@ public class StockDetailActivity extends AppCompatActivity {
         GetHourlyData getData = new GetHourlyData();
         getData.execute(stockTicker);
 
+        String highStocksURL = String.format("http://www-scf.usc.edu/~deole/highstocks.php/?sym=%s", stockTicker);
+        loadChart(highStocksURL);
     }
 
-    class GetHourlyData extends AsyncTask<String, Integer, Void> {
+    private void loadChart(String stockURL) {
+        stockChartViewer.getSettings().setJavaScriptEnabled(true);
+        stockChartViewer.loadUrl(stockURL);
+    }
+
+    private class GetHourlyData extends AsyncTask<String, Integer, Void> {
 
         @Override
         protected Void doInBackground(String... strings) {
