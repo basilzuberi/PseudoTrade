@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,9 @@ public class StocksActivity extends AppCompatActivity {
     ListView stocksListView;
     ArrayList<Stock> stockList;
     StockListAdapter stockListAdapter;
+    Button refreshButton;
+    ProgressBar refreshProgressBar;
+
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
 
@@ -59,6 +64,15 @@ public class StocksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stocks);
         stockSearchBar = findViewById(R.id.stock_search_bar);
         stocksListView = findViewById(R.id.stock_list);
+        refreshButton = findViewById(R.id.refresh_button);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshStocksList();
+            }
+        });
+        refreshProgressBar = findViewById(R.id.refresh_progress_bar);
+        refreshProgressBar.setVisibility(View.INVISIBLE);
         stockList = new ArrayList<>();
         stockListAdapter = new StockListAdapter(this);
         stocksListView.setAdapter(stockListAdapter);
@@ -113,8 +127,7 @@ public class StocksActivity extends AppCompatActivity {
                         stockSymbols.add(stockHeld);
                 }
 
-                GetCurrentPrices getPrices = new GetCurrentPrices();
-                getPrices.execute(stockSymbols);
+                RefreshStocksList();
             }
 
             @Override
@@ -123,16 +136,30 @@ public class StocksActivity extends AppCompatActivity {
         });
     }
 
-    class GetCurrentPrices extends AsyncTask<ArrayList<String>, Void, ArrayList<Double>> {
+    void RefreshStocksList() {
+        GetCurrentPrices getPrices = new GetCurrentPrices();
+        getPrices.execute(stockSymbols);
+    }
+
+    class GetCurrentPrices extends AsyncTask<ArrayList<String>, Integer, ArrayList<Double>> {
 
         @Override
         protected ArrayList<Double> doInBackground(ArrayList<String>... arrayLists) {
             ArrayList<Double> prices = new ArrayList<>();
 
+            int progressIncrement = (int) (100.00 / arrayLists[0].size());
+            ArrayList<Integer> progressIncrements = new ArrayList<>();
+            for (int i = 1; i < arrayLists[0].size() + 1; i++) {
+                progressIncrements.add(progressIncrement * i);
+            }
+
+            int counter = 0;
             for (String symbol: arrayLists[0]) {
                 Double price = null;
                 try {
                     price = getPrice(symbol);
+                    publishProgress(progressIncrements.get(counter));
+                    counter++;
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -145,12 +172,19 @@ public class StocksActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Double> doubles) {
             stockPrices = doubles;
+            refreshProgressBar.setVisibility(View.INVISIBLE);
             populateStockList(stockSymbols, stockPrices);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            refreshProgressBar.setVisibility(View.VISIBLE);
+            refreshProgressBar.setProgress(values[0]);
         }
 
         private Double getPrice(String symbol) throws IOException, JSONException {
             URL alphaURL = new URL("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=1min&apikey=" + ALPHA_KEY);
-            // URL alphaURL = new URL("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo");
             HttpURLConnection connection = (HttpURLConnection)alphaURL.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -168,7 +202,6 @@ public class StocksActivity extends AppCompatActivity {
                 JSONObject jsonResult = new JSONObject(result.toString());
                 String latestTime = jsonResult.getJSONObject("Meta Data").getString("3. Last Refreshed");
                 Double latestPrice = Double.valueOf(jsonResult.getJSONObject("Time Series (1min)").getJSONObject(latestTime).getString("4. close"));
-                // Double latestPrice = Double.valueOf(jsonResult.getJSONObject("Time Series (5min)").getJSONObject(latestTime).getString("4. close"));
                 latestPrice = Math.round(latestPrice * 100.0) / 100.0;
                 return latestPrice;
             }
@@ -176,11 +209,19 @@ public class StocksActivity extends AppCompatActivity {
     }
 
     private void populateStockList(ArrayList<String> symbols, ArrayList<Double> prices) {
-        for (int i = 0; i < symbols.size(); i++) {
-            Stock stock = new Stock(symbols.get(i), holdings.get(symbols.get(i)), prices.get(i));
-            stockList.add(stock);
+        if (prices.contains(null)) {
+            Toast errorToast = Toast.makeText(this, "Portfolio cannot be refreshed at this time. Please try again in a minute.", Toast.LENGTH_SHORT);
+            errorToast.show();
+        } else {
+            stockList.clear();
+            stockListAdapter.notifyDataSetChanged();
+
+            for (int i = 0; i < symbols.size(); i++) {
+                Stock stock = new Stock(symbols.get(i), holdings.get(symbols.get(i)), prices.get(i));
+                stockList.add(stock);
+            }
+            stockListAdapter.notifyDataSetChanged();
         }
-        stockListAdapter.notifyDataSetChanged();
     }
 
     private class StockListAdapter extends ArrayAdapter<Stock> {
