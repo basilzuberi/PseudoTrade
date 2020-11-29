@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,7 @@ public class StocksActivity extends AppCompatActivity {
 
     SearchView stockSearchBar;
     ListView stocksListView;
+    TextView cashBalanceTextView;
     ArrayList<Stock> stockList;
     StockListAdapter stockListAdapter;
     Button refreshButton;
@@ -63,6 +66,7 @@ public class StocksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocks);
         stockSearchBar = findViewById(R.id.stock_search_bar);
+        cashBalanceTextView = findViewById(R.id.cashBalanceTextView);
         stocksListView = findViewById(R.id.stock_list);
         refreshButton = findViewById(R.id.refresh_button);
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +107,7 @@ public class StocksActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cashBalance = snapshot.getValue(Double.class);
+                cashBalanceTextView.setText(String.format("Account Balance: $%.2f", cashBalance));
             }
 
             @Override
@@ -137,8 +142,16 @@ public class StocksActivity extends AppCompatActivity {
     }
 
     void RefreshStocksList() {
-        GetCurrentPrices getPrices = new GetCurrentPrices();
-        getPrices.execute(stockSymbols);
+        if (!stockSymbols.isEmpty()) {
+            GetCurrentPrices getPrices = new GetCurrentPrices();
+            getPrices.execute(stockSymbols);
+        } else {
+            Snackbar emptyPortfolioSnackbar =
+                    Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
+                            "Your portfolio is empty. Tap the search bar to get started!",
+                            BaseTransientBottomBar.LENGTH_LONG);
+            emptyPortfolioSnackbar.show();
+        }
     }
 
     class GetCurrentPrices extends AsyncTask<ArrayList<String>, Integer, ArrayList<Double>> {
