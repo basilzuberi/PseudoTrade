@@ -1,6 +1,7 @@
 package com.project.pseudotrade;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -87,10 +89,19 @@ public class StocksActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Stock stock = stockListAdapter.getItem(position);
-                /*String tempMessage = String.format("A detailed page for %s will be shown eventually...", stock.getName());
-                Toast toast = Toast.makeText(StocksActivity.this, tempMessage, Toast.LENGTH_SHORT);
-                toast.show();*/
 
+                String stockTicker = stock.getTicker();
+                String stockName = stock.getName();
+                double stockPrice = stock.getCurrentPrice();
+
+                Bundle stockInfoBundle = new Bundle();
+                stockInfoBundle.putString("stockTicker", stockTicker);
+                stockInfoBundle.putString("stockName", stockName);
+                stockInfoBundle.putDouble("stockPrice", stockPrice);
+
+                Intent getStockDetailsIntent = new Intent(StocksActivity.this, StockDetailActivity.class);
+                getStockDetailsIntent.putExtras(stockInfoBundle);
+                startActivity(getStockDetailsIntent);
             }
         });
 
@@ -197,6 +208,7 @@ public class StocksActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Double> doubles) {
+            super.onPostExecute(doubles);
             stockPrices = doubles;
             refreshProgressBar.setVisibility(View.INVISIBLE);
             populateStockList(stockSymbols, stockNames, stockPrices);
