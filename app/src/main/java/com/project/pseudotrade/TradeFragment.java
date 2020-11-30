@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 public class TradeFragment extends Fragment {
 
+    TextView tradeCashBalanceTextView;
     TextView stockTickerTradeTextView;
     Button buyButton;
     Button sellButton;
@@ -45,6 +46,8 @@ public class TradeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tradeCashBalanceTextView = view.findViewById(R.id.tradeCashBalanceTextView);
+        tradeCashBalanceTextView.setText(String.format("Cash Balance: $%.2f", cashBalance));
         stockTickerTradeTextView = view.findViewById(R.id.stockTickerTradeTextView);
         stockTickerTradeTextView.setText(stockTicker);
         buyButton = view.findViewById(R.id.buyButton);
