@@ -2,6 +2,7 @@ package com.project.pseudotrade;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import java.util.HashMap;
 public class TradeActivity extends AppCompatActivity {
 
     ListView resultsListView;
+    TradeFragment tradeFragment;
     ResultListAdapter resultListAdapter;
     ArrayList<String> resultList;
     HashMap<String, String> resultHashMap;
@@ -53,6 +56,26 @@ public class TradeActivity extends AppCompatActivity {
         resultList = new ArrayList<>();
         resultListAdapter = new ResultListAdapter(this);
         resultsListView.setAdapter(resultListAdapter);
+        resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (tradeFragment != null) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.remove(tradeFragment);
+                    fragmentTransaction.commit();
+                }
+                String ticker = resultListAdapter.getItem(i);
+                Bundle buySellBundle = new Bundle();
+                buySellBundle.putString("ticker", ticker);
+                buySellBundle.putDouble("cashBalance", cashBalance);
+                buySellBundle.putSerializable("holdings", holdings);
+                tradeFragment = new TradeFragment();
+                tradeFragment.setArguments(buySellBundle);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.trade_frame, tradeFragment);
+                fragmentTransaction.commit();
+            }
+        });
         resultHashMap = new HashMap<>();
 
         GetSearchResults getSearchResults = new GetSearchResults();
