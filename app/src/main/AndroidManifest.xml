@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PseudoTrade">
-        <activity android:name=".StockDetailActivity"
+        <activity
+            android:name=".TradeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+        <activity
+            android:name=".StockDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity

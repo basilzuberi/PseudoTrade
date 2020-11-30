@@ -71,6 +71,18 @@ public class StocksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocks);
         stockSearchBar = findViewById(R.id.stock_search_bar);
+        stockSearchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                goTrade(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         cashBalanceTextView = findViewById(R.id.cashBalanceTextView);
         stocksListView = findViewById(R.id.stock_list);
         refreshButton = findViewById(R.id.refresh_button);
@@ -284,6 +296,22 @@ public class StocksActivity extends AppCompatActivity {
         }
     }
 
+    private void goTrade(String searchString) {
+        Intent goTradeIntent = new Intent(StocksActivity.this, TradeActivity.class);
+        Bundle goTradeBundle = new Bundle();
+        goTradeBundle.putString("searchString", searchString);
+        goTradeBundle.putDouble("cashBalance", cashBalance);
+        goTradeBundle.putSerializable("holdings", holdings);
+        goTradeIntent.putExtras(goTradeBundle);
+        startActivityForResult(goTradeIntent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) { GetUserData(mDatabaseReference); }
+    }
+
     private class StockListAdapter extends ArrayAdapter<Stock> {
         public StockListAdapter(Context context) {
             super(context, 0);
@@ -301,7 +329,6 @@ public class StocksActivity extends AppCompatActivity {
             LayoutInflater inflater = StocksActivity.this.getLayoutInflater();
             View result = inflater.inflate(R.layout.stock_row, null);
             TextView stockRowName = (TextView) result.findViewById(R.id.stock_name);
-            //stockRowName.setText(getItem(position).getTicker());
             stockRowName.setText(String.format("%s\n(%s)", getItem(position).getTicker(), getItem(position).getName()));
             TextView stockRowHoldingsValue = (TextView) result.findViewById(R.id.holdings_value);
             String stockValue = String.format("$%.02f", getItem(position).getHoldingsValue());
