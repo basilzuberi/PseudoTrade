@@ -30,6 +30,8 @@
         <activity
             android:name=".StocksActivity"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+
     </application>
+
 
 </manifest>
