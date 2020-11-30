@@ -89,7 +89,7 @@ public class StocksActivity extends AppCompatActivity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RefreshStocksList();
+                RefreshStocksList(false);
             }
         });
         refreshProgressBar = findViewById(R.id.refresh_progress_bar);
@@ -126,10 +126,10 @@ public class StocksActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance(); // Get current user's balance and portfolio holdings
         mDatabaseReference = mDatabase.getReference("Users");
-        GetUserData(mDatabaseReference);
+        GetUserData(mDatabaseReference, false);
     }
 
-    private void GetUserData(DatabaseReference mDatabaseReference) {
+    private void GetUserData(DatabaseReference mDatabaseReference, boolean justSold) {
         DatabaseReference balanceRef = mDatabaseReference.child(userID).child("cashBalance");
         balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -160,7 +160,7 @@ public class StocksActivity extends AppCompatActivity {
                         stockSymbols.add(stockHeld);
                 }
 
-                RefreshStocksList();
+                RefreshStocksList(justSold);
             }
 
             @Override
@@ -169,16 +169,18 @@ public class StocksActivity extends AppCompatActivity {
         });
     }
 
-    void RefreshStocksList() {
+    void RefreshStocksList(Boolean justSold) {
         if (!stockSymbols.isEmpty()) {
             GetCurrentPrices getPrices = new GetCurrentPrices();
             getPrices.execute(stockSymbols);
         } else {
-            Snackbar emptyPortfolioSnackbar =
-                    Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
-                            "Your portfolio is empty. Tap the search bar to get started!",
-                            BaseTransientBottomBar.LENGTH_LONG);
-            emptyPortfolioSnackbar.show();
+            if (!justSold) {
+                Snackbar emptyPortfolioSnackbar =
+                        Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
+                                "Your portfolio is empty. Tap the search bar to get started!",
+                                BaseTransientBottomBar.LENGTH_LONG);
+                emptyPortfolioSnackbar.show();
+            }
         }
     }
 
@@ -309,7 +311,34 @@ public class StocksActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 1) { GetUserData(mDatabaseReference); }
+        if (resultCode == 1) {
+            Snackbar buySuccessSnackbar =
+                    Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
+                            "Your purchase was successful!",
+                            BaseTransientBottomBar.LENGTH_LONG);
+            buySuccessSnackbar.show();
+            holdings.clear();
+            stockList.clear();
+            stockSymbols.clear();
+            stockNames.clear();
+            stockPrices.clear();
+            stockListAdapter.notifyDataSetChanged();
+            GetUserData(mDatabaseReference, true);
+        }
+        if (resultCode == 2) {
+            Snackbar sellSuccessSnackbar =
+                    Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
+                            "You successfully sold your shares!",
+                            BaseTransientBottomBar.LENGTH_LONG);
+            sellSuccessSnackbar.show();
+            holdings.clear();
+            stockList.clear();
+            stockSymbols.clear();
+            stockNames.clear();
+            stockPrices.clear();
+            stockListAdapter.notifyDataSetChanged();
+            GetUserData(mDatabaseReference, true);
+        }
     }
 
     private class StockListAdapter extends ArrayAdapter<Stock> {
