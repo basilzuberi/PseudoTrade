@@ -45,6 +45,8 @@
             android:name=".StocksActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+
     </application>
+
 
 </manifest>
