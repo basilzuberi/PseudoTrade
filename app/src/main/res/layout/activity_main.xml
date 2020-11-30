@@ -78,12 +78,14 @@
     <ImageButton
         android:id="@+id/homeButton"
         android:layout_width="100dp"
-        android:scaleType="centerCrop"
         android:layout_height="45dp"
         android:padding="0dp"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_16_24_pm"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="685dp" />
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/settingsButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/stockButton"
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_16_24_pm" />
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -92,8 +94,8 @@
         android:layout_marginTop="685dp"
         android:layout_marginEnd="4dp"
         android:padding="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm" />
 
@@ -103,8 +105,8 @@
         android:layout_height="45dp"
         android:layout_marginTop="685dp"
         android:layout_marginBottom="1dp"
-        android:scaleType="centerCrop"
         android:padding="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.34"
