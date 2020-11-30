@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     Button mBtnLogin;
@@ -84,9 +86,16 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("LoginEmail", user.getEmail()); //we add the string from LoggedInUsers Email to SharedPreferences (LoginActivityShared.xml)
         editor.apply();
 
+        String userID = user.getUid();
+        Bundle userDataBundle = new Bundle(); // Pass UserID to MainActivity
+        userDataBundle.putString("userID", userID);
+
         Intent startMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+        startMainActivity.putExtras(userDataBundle);
         startActivity(startMainActivity); //goto MainActivity
-        finish();
+//        finish();
+        mEmailAddress.setText("");
+        mPassword.setText("");
     }
 
 
