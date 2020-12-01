@@ -18,4 +18,5 @@
     <string name="enter_the_quantity_to_buy_or_sell">Enter the quantity to buy or sell…</string>
     <string name="buy_sell_prompt_message">Please enter a number of units to buy or sell…</string>
     <string name="insufficient_funds_message">Insufficient funds to make this purchase!</string>
+    <string name="app_name">PseudoTrade</string>
 </resources>

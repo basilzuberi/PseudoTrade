@@ -161,11 +161,11 @@ public class StockDetailActivity extends AppCompatActivity {
             } else {
                 stockNameTextView.setText(stockName);
                 stockTickerTextView.setText(stockTicker);
-                stockOpenTextView.setText(String.format("%s: $%.2f", R.string.open, hourData.get("open")));
-                stockCloseTextView.setText(String.format("%s: $%.2f", R.string.close, hourData.get("close")));
-                stockHighTextView.setText(String.format("%s: $%.2f", R.string.high, hourData.get("high")));
-                stockLowTextView.setText(String.format("%s: $%.2f", R.string.low, hourData.get("low")));
-                stockVolumeTextView.setText(String.format("%s: %d %s", R.string.volume_traded, hourData.get("volume").intValue(), R.string.units));
+                stockOpenTextView.setText(String.format("%s: $%.2f", getString(R.string.open), hourData.get("open")));
+                stockCloseTextView.setText(String.format("%s: $%.2f", getString(R.string.close), hourData.get("close")));
+                stockHighTextView.setText(String.format("%s: $%.2f", getString(R.string.high), hourData.get("high")));
+                stockLowTextView.setText(String.format("%s: $%.2f", getString(R.string.low), hourData.get("low")));
+                stockVolumeTextView.setText(String.format("%s: %d %s", getString(R.string.volume_traded), hourData.get("volume").intValue(), getString(R.string.units)));
             }
         }
     }

@@ -135,7 +135,7 @@ public class StocksActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cashBalance = snapshot.getValue(Double.class);
-                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
+                cashBalanceTextView.setText(String.format("%s $%.2f", getString(R.string.cash_balance), cashBalance));
             }
 
             @Override
@@ -177,7 +177,7 @@ public class StocksActivity extends AppCompatActivity {
             if (!justSold) {
                 Snackbar emptyPortfolioSnackbar =
                         Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
-                                R.string.empty_portfolio_message,
+                                getString(R.string.empty_portfolio_message),
                                 BaseTransientBottomBar.LENGTH_LONG);
                 emptyPortfolioSnackbar.show();
             }
@@ -284,7 +284,7 @@ public class StocksActivity extends AppCompatActivity {
 
     private void populateStockList(ArrayList<String> symbols, ArrayList<String> names, ArrayList<Double> prices) {
         if (prices.contains(null)) {
-            Toast errorToast = Toast.makeText(this, R.string.cannot_refresh_portfolio_message, Toast.LENGTH_SHORT);
+            Toast errorToast = Toast.makeText(this, getString(R.string.cannot_refresh_portfolio_message), Toast.LENGTH_SHORT);
             errorToast.show();
         } else {
             stockList.clear();
@@ -314,7 +314,7 @@ public class StocksActivity extends AppCompatActivity {
         if (resultCode == 1) {
             Snackbar buySuccessSnackbar =
                     Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
-                            R.string.buy_successful_message,
+                            getString(R.string.buy_successful_message),
                             BaseTransientBottomBar.LENGTH_LONG);
             buySuccessSnackbar.show();
             holdings.clear();
@@ -328,7 +328,7 @@ public class StocksActivity extends AppCompatActivity {
         if (resultCode == 2) {
             Snackbar sellSuccessSnackbar =
                     Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),
-                            R.string.sell_successful_message,
+                            getString(R.string.sell_successful_message),
                             BaseTransientBottomBar.LENGTH_LONG);
             sellSuccessSnackbar.show();
             holdings.clear();
@@ -363,7 +363,7 @@ public class StocksActivity extends AppCompatActivity {
             String stockValue = String.format("$%.02f", getItem(position).getHoldingsValue());
             stockRowHoldingsValue.setText(stockValue);
             TextView stockRowQuantity = (TextView) result.findViewById(R.id.stock_quantity);
-            String stockUnits = String.format("%d %s", getItem(position).getQuantity(), R.string.units);
+            String stockUnits = String.format("%d %s", getItem(position).getQuantity(), getString(R.string.units));
             stockRowQuantity.setText(stockUnits);
             TextView stockRowPrice = (TextView) result.findViewById(R.id.stock_price);
             String stockPrice = String.format("$%.02f", getItem(position).getCurrentPrice());
