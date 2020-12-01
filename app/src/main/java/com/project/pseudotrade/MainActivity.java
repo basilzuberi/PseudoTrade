@@ -1,22 +1,29 @@
 package com.project.pseudotrade;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
     Button mBtnMainPage;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
+    SharedPreferences mSharedPreference;
     String userID;
+    TextView mainGreeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +44,33 @@ public class MainActivity extends AppCompatActivity {
         mBtnSettingsPage = findViewById(R.id.settingsButton);
         mBtnStocksPage = findViewById(R.id.stockButton);
 
-        mDatabase = FirebaseDatabase.getInstance(); //database Ref
+        mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
+
+        mainGreeting = findViewById(R.id.main_greeting);
         Bundle userDataBundle = getIntent().getExtras();
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
+
+        mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
+
+
+        Log.i("MainActivity", "");
+        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("childBalance");
+        balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Double cashBalance = snapshot.getValue(Double.class);
+//                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
+                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
+//                Log.i("MainActivity",String.valueOf(cashBalance));
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);
