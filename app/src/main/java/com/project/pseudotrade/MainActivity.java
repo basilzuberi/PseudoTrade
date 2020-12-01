@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     TextView mainGreeting;
     TextView mainAccBal;
     ArrayList<String> stockSymbols;
-
+    String url ="https://seekingalpha.com/market-news";
+    WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,24 @@ public class MainActivity extends AppCompatActivity {
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
 
         updateBalance();
+
+        //adding webView for stock news!
+        mWebView =findViewById(R.id.wwStockNews);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient() {
+
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                //dont show us website header
+                mWebView.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementsByTagName('header')[0];"
+                        + "head.parentNode.removeChild(head);" +
+                        "})()");
+            }
+        });
+
+        mWebView.loadUrl(url);
 
 
         StocksPage.setOnClickListener(new View.OnClickListener() {
@@ -174,5 +195,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateBalance();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //check if WebView can go back, if not use default functionality
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
