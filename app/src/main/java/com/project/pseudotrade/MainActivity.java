@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton MainPage;
     ImageButton Help;
     FirebaseDatabase mDatabase;
+    FirebaseAuth mAuth;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
     HashMap<String, Integer> holdings;
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         LearningPage = findViewById(R.id.settingsButton);
         MainPage = findViewById(R.id.stockButton);
         //HelpPage = findViewById(R.id.stockButton);
-
+        mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
@@ -129,7 +132,25 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Double cashBalance = snapshot.getValue(Double.class);
 //                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
-                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                DatabaseReference ref = mDatabaseReference.child(currentUser.getUid()).child("username");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String mUsername = snapshot.getValue(String.class);
+                        mainGreeting.setText(String.format("Hello, \n%s", mUsername));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+//                //mSharedPreference.getString("LoginEmail","")
+                assert currentUser != null;
+//                mainGreeting.setText(String.format("Hello, \n%s",);
                 Log.i("MainActivity",String.valueOf(cashBalance));
                 mainAccBal.setText(String.format("$%.2f",(cashBalance)));
             }
