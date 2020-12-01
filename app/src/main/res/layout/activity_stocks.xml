@@ -19,7 +19,7 @@
         android:id="@+id/cashBalanceTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cash Balance:"
+        android:text="@string/cash_balance"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Refresh"
+        android:text="@string/refresh"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

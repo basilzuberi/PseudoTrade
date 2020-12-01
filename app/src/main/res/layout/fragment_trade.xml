@@ -54,7 +54,7 @@
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:backgroundTint="@color/buyButtonGreen"
-            android:text="Buy"
+            android:text="@string/buy"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="64dp" />
 
@@ -65,7 +65,7 @@
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:backgroundTint="@color/sellButtonRed"
-            android:text="Sell"
+            android:text="@string/sell"
             tools:layout_editor_absoluteX="307dp"
             tools:layout_editor_absoluteY="64dp" />
 
@@ -78,7 +78,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Enter the quantity to buy or sell..."
+        android:hint="@string/enter_the_quantity_to_buy_or_sell"
         android:inputType="number"
         android:digits="0123456789"
         app:layout_constraintEnd_toEndOf="parent"

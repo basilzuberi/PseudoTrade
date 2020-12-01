@@ -152,7 +152,7 @@ public class StockDetailActivity extends AppCompatActivity {
                 LayoutInflater inflater = StockDetailActivity.this.getLayoutInflater();
                 final View view = inflater.inflate(R.layout.error_dialog, null);
                 errorDialog.setView(view)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 finish();
                             }
@@ -161,11 +161,11 @@ public class StockDetailActivity extends AppCompatActivity {
             } else {
                 stockNameTextView.setText(stockName);
                 stockTickerTextView.setText(stockTicker);
-                stockOpenTextView.setText(String.format("Open: $%.2f", hourData.get("open")));
-                stockCloseTextView.setText(String.format("Close: $%.2f", hourData.get("close")));
-                stockHighTextView.setText(String.format("High: $%.2f", hourData.get("high")));
-                stockLowTextView.setText(String.format("Low: $%.2f", hourData.get("low")));
-                stockVolumeTextView.setText(String.format("Volume traded: %d units", hourData.get("volume").intValue()));
+                stockOpenTextView.setText(String.format("%s: $%.2f", R.string.open, hourData.get("open")));
+                stockCloseTextView.setText(String.format("%s: $%.2f", R.string.close, hourData.get("close")));
+                stockHighTextView.setText(String.format("%s: $%.2f", R.string.high, hourData.get("high")));
+                stockLowTextView.setText(String.format("%s: $%.2f", R.string.low, hourData.get("low")));
+                stockVolumeTextView.setText(String.format("%s: %d %s", R.string.volume_traded, hourData.get("volume").intValue(), R.string.units));
             }
         }
     }
