@@ -68,25 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
 
-
-        Log.i("MainActivity", "");
-        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("cashBalance");
-        balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Double cashBalance = snapshot.getValue(Double.class);
-//                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
-                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
-                Log.i("MainActivity",String.valueOf(cashBalance));
-                mainAccBal.setText(String.format("$%.2f",(cashBalance)));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-
-
+        updateBalance();
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);
 //        TabLayout tabMain = findViewById(R.id.Main_page);
@@ -115,7 +97,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    private void updateBalance() {
+        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("cashBalance");
+        balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Double cashBalance = snapshot.getValue(Double.class);
+//                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
+                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
+                Log.i("MainActivity",String.valueOf(cashBalance));
+                mainAccBal.setText(String.format("$%.2f",(cashBalance)));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,5 +122,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(settingsIntent);
             finish();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateBalance();
     }
 }
