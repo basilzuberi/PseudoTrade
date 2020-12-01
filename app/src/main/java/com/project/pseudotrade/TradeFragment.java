@@ -88,7 +88,7 @@ public class TradeFragment extends Fragment {
         getPriceTask.execute(stockTicker);
 
         tradeCashBalanceTextView = view.findViewById(R.id.tradeCashBalanceTextView);
-        tradeCashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
+        tradeCashBalanceTextView.setText(String.format("%s $%.2f", getString(R.string.cash_balance), cashBalance));
         stockTickerTradeTextView = view.findViewById(R.id.stockTickerTradeTextView);
         stockTickerTradeTextView.setText(stockTicker);
         buyButton = view.findViewById(R.id.buyButton);
@@ -96,7 +96,7 @@ public class TradeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (quantityEditText.getText() == null || quantityEditText.getText().toString().equals("") || quantityEditText.getText().toString().equals("0")) {
-                    Toast errorToast = Toast.makeText(getActivity(), R.string.buy_sell_prompt_message, Toast.LENGTH_SHORT);
+                    Toast errorToast = Toast.makeText(getActivity(), getString(R.string.buy_sell_prompt_message), Toast.LENGTH_SHORT);
                     errorToast.show();
                 } else {
                     buyStock(stockTicker, Integer.parseInt(quantityEditText.getText().toString()));
@@ -108,7 +108,7 @@ public class TradeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (quantityEditText.getText() == null || quantityEditText.getText().toString().equals("") || quantityEditText.getText().toString().equals("0")) {
-                    Toast errorToast = Toast.makeText(getActivity(), R.string.buy_sell_prompt_message, Toast.LENGTH_SHORT);
+                    Toast errorToast = Toast.makeText(getActivity(), getString(R.string.buy_sell_prompt_message), Toast.LENGTH_SHORT);
                     errorToast.show();
                 } else {
                     sellStock(stockTicker, Integer.parseInt(quantityEditText.getText().toString()));
@@ -149,7 +149,7 @@ public class TradeFragment extends Fragment {
         if (totalCost > cashBalance) {
             Snackbar insufficientFundsSnackbar =
                     Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
-                            R.string.insufficient_funds_message,
+                            getString(R.string.insufficient_funds_message),
                             BaseTransientBottomBar.LENGTH_LONG);
             insufficientFundsSnackbar.show();
             return;
