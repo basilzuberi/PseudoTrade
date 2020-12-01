@@ -25,6 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageButton mBtnSettingsPage;
@@ -33,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
+    HashMap<String, Integer> holdings;
     String userID;
     TextView mainGreeting;
+    TextView mainAccBal;
+    ArrayList<String> stockSymbols;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseReference = mDatabase.getReference("Users");
 
         mainGreeting = findViewById(R.id.main_greeting);
+        mainAccBal = findViewById(R.id.main_acc_bal);
+
+        holdings = new HashMap<>();
+        stockSymbols = new ArrayList<>();
+
         Bundle userDataBundle = getIntent().getExtras();
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
@@ -56,21 +70,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         Log.i("MainActivity", "");
-        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("childBalance");
+        DatabaseReference balanceRef = mDatabaseReference.child(userID).child("cashBalance");
         balanceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Double cashBalance = snapshot.getValue(Double.class);
 //                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
                 mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
-//                Log.i("MainActivity",String.valueOf(cashBalance));
+                Log.i("MainActivity",String.valueOf(cashBalance));
+                mainAccBal.setText(String.format("$%.2f",(cashBalance)));
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+
 
 
 //        TabLayout tabLayout = findViewById(R.id.tabLayout);

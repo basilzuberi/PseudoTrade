@@ -21,6 +21,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         Button signoutButton = findViewById(R.id.settings_signout_button);
+        Button changeEmailButton = findViewById(R.id.settings_change_email);
+
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,5 +34,14 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
+
+
 }

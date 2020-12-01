@@ -19,5 +19,7 @@
     <string name="buy_sell_prompt_message">Please enter a number of units to buy or sell…</string>
     <string name="insufficient_funds_message">Insufficient funds to make this purchase!</string>
     <string name="app_name">PseudoTrade</string>
-    <string name="main_hello">Hello</string>
+    <string name="main_hello"></string>
+    <string name="main_hvy_app">Your Account Balance:</string>
+
 </resources>

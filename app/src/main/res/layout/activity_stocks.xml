@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".StocksActivity">
 
@@ -11,9 +12,9 @@
         android:id="@+id/stock_search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:queryHint="Search for stocks..."
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:queryHint="Search for stocks..."/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cashBalanceTextView"
@@ -51,7 +52,6 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
