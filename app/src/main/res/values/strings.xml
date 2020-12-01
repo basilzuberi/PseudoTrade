@@ -6,5 +6,20 @@
     <string name="mainfragment">MainFragment</string>
     <string name="stocks">Stocks</string>
     <string name="settings">Settings</string>
+    <string name="main_page">Main Page</string>
     <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="pass_hint">Password</string>
+    <string name="email_hint">E-mail</string>
+    <string name="sett_sim_heading">Simulator</string>
+    <string name="sett_cntr_heading">Country</string>
+    <string name="sett_curr_heading">Currency</string>
+    <string name="sett_app_heading">App</string>
+    <string name="sett_usr_heading">Username</string>
+    <string name="sett_thm_heading">Theme</string>
+    <string name="sett_acc_heading">Account</string>
+    <string name="sett_sgn_out">Signout</string>
+    <string name="sett_chng_email">Change Email</string>
+    <string name="sett_rst_dat">Reset Data</string>
+    <string name="referesh_butt">Refresh</string>
 </resources>
