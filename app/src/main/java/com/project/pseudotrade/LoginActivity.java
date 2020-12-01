@@ -93,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
         Intent startMainActivity = new Intent(LoginActivity.this, MainActivity.class);
         startMainActivity.putExtras(userDataBundle);
         startActivity(startMainActivity); //goto MainActivity
-//        finish();
         mEmailAddress.setText("");
         mPassword.setText("");
+        finish();
+
     }
 
 

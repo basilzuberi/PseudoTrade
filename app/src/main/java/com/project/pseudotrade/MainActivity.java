@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 10){
             Log.i("BLADEEDBUUBLAH","Finished");
+            Intent settingsIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(settingsIntent);
             finish();
         }
     }
