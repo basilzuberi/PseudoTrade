@@ -16,13 +16,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class LinkListsAdapter extends ArrayAdapter<LinkLists> {
+public class LinkListsAdapter extends ArrayAdapter<LinkofLists> {
     private Context mContext;
     private int mResource;
     String[] urls;
 
 
-    public LinkListsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<LinkLists> objects, String[] urls) {
+    public LinkListsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<LinkofLists> objects, String[] urls) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;

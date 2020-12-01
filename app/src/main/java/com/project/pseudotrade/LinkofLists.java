@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LinkLists extends AppCompatActivity {
+public class LinkofLists extends AppCompatActivity {
         int Image;
         String Name;
         String Des;
 
-    public LinkLists(int image, String name, String des) {
+    public LinkofLists(int image, String name, String des) {
             Image = image;
             Name = name;
             Des = des;

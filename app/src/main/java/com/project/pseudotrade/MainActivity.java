@@ -32,9 +32,11 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton mBtnSettingsPage;
-    ImageButton mBtnStocksPage;
-    Button mBtnMainPage;
+    ImageButton SettingsPage;
+    ImageButton StocksPage;
+    ImageButton LearningPage;
+    ImageButton MainPage;
+    ImageButton Help;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
@@ -50,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBtnSettingsPage = findViewById(R.id.settingsButton);
-        mBtnStocksPage = findViewById(R.id.stockButton);
+        SettingsPage = findViewById(R.id.settingsButton);
+        StocksPage = findViewById(R.id.stockButton);
+        LearningPage = findViewById(R.id.settingsButton);
+        MainPage = findViewById(R.id.stockButton);
+        //HelpPage = findViewById(R.id.stockButton);
+
 
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
@@ -70,13 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         updateBalance();
 
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        TabLayout tabMain = findViewById(R.id.Main_page);
-//        TabLayout tabStock = findViewById(R.id.Stocks_page);
-//        TabLayout tabSetting = findViewById(R.id.Settings_page);
-//        ViewPager viewPag q   er = findViewById(R.id.viewPager);
 
-        mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
+        StocksPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle userDataBundle = new Bundle();
@@ -87,10 +88,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBtnSettingsPage.setOnClickListener(new View.OnClickListener() {
+        SettingsPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(settingsIntent, 10);
+            }
+        });
+
+//        LearningPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
+//                startActivityForResult(settingsIntent, 10);
+//            }
+//        });
+//
+//       HelpPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
+//                startActivityForResult(settingsIntent, 10);
+//            }
+//        });
+
+        MainPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivityForResult(settingsIntent, 10);
             }
         });
