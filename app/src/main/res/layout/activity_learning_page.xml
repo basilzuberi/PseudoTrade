@@ -2,108 +2,78 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentBottom="true"
-    android:layout_gravity="center"
-    android:background="#080808"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".MainActivity">
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="411dp"
+        android:layout_height="731dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ListView>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="264dp"
-        android:layout_height="280dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="427dp"
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="101.5dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="685dp"
+        android:layout_marginEnd="108dp"
+        android:contentDescription="TODO"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961"
-        app:srcCompat="@drawable/_2457288_removebg_preview_copy_1" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_01_pm" />
 
-    <EditText
-        android:id="@+id/txtEmailAddress"
-        android:layout_width="324dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginBottom="330dp"
-        android:layout_gravity="center_horizontal"
-        android:autofillHints="email"
-        android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="303dp"
+        android:layout_marginTop="685dp"
+        android:contentDescription="TODO"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="324dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="410dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="268dp"
-        android:layout_gravity="center_horizontal"
-        android:autofillHints="password"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm" />
 
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="114dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="484dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="198dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:text="Login"
+    <ImageButton
+        android:id="@+id/stockButton"
+        android:layout_width="101.5dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="685dp"
+        android:layout_marginEnd="209dp"
+        android:contentDescription="TODO"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_38_pm" />
 
-    <Button
-        android:id="@+id/buttonSignUp"
-        android:layout_width="114dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="545dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="137dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:text="Sign Up"
+    <ImageButton
+        android:id="@+id/Learning"
+        android:layout_width="101.5dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="685dp"
+        android:layout_marginEnd="310dp"
+        android:contentDescription="TODO"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_51_pm"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
