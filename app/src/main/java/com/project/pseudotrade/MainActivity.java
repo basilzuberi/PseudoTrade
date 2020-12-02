@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         SettingsPage = findViewById(R.id.settingsButton);
         StocksPage = findViewById(R.id.stockButton);
-        ImageButton Learning_Button = (ImageButton)findViewById(R.id.Learning);
+        ImageButton Learning_Button = (ImageButton)findViewById(R.id.learningButton);
         MainPage = findViewById(R.id.homeButton);
         //HelpPage = findViewById(R.id.stockButton);
 
