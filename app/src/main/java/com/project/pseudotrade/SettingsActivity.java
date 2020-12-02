@@ -99,7 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Log.d(TAG, "Email updated");
-                                                Toast.makeText(SettingsActivity.this, "Your email has been changed to: " + eml,Toast.LENGTH_SHORT).show();
+                                                   Toast.makeText(SettingsActivity.this, "Your email has been changed to: " + eml,Toast.LENGTH_SHORT).show();
 
                                                 password.setText("");
                                                 email.setText("");
