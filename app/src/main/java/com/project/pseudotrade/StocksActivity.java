@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +46,11 @@ import java.util.HashMap;
 
 public class StocksActivity extends AppCompatActivity {
 
+    ImageButton SettingsPage;
+    ImageButton StocksPage;
+    ImageButton LearningPage;
+    ImageButton MainPage;
+
     SearchView stockSearchBar;
     ListView stocksListView;
     TextView cashBalanceTextView;
@@ -54,6 +61,7 @@ public class StocksActivity extends AppCompatActivity {
 
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
+    private FirebaseAuth mAuth;
 
     String userID;
     HashMap<String, Integer> holdings;
@@ -71,6 +79,54 @@ public class StocksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocks);
         stockSearchBar = findViewById(R.id.stock_search_bar);
+
+        SettingsPage = findViewById(R.id.settingsButton);
+        StocksPage = findViewById(R.id.stockButton);
+        LearningPage = findViewById(R.id.Learning);
+        MainPage = findViewById(R.id.homeButton);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        StocksPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle userDataBundle = new Bundle();
+                userDataBundle.putString("userID", userID);
+                Intent stocksIntent = new Intent(StocksActivity.this, StocksActivity.class);
+                stocksIntent.putExtras(userDataBundle);
+                startActivity(stocksIntent);
+            }
+        });
+
+        SettingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(StocksActivity.this, SettingsActivity.class);
+                startActivityForResult(settingsIntent, 10);
+            }
+        });
+
+        LearningPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(StocksActivity.this, learning_page.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+
+        MainPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(StocksActivity.this, MainActivity.class);
+                startActivityForResult(settingsIntent, 10);
+            }
+        });
+
+
         stockSearchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -120,6 +176,9 @@ public class StocksActivity extends AppCompatActivity {
         Bundle userDataBundle = getIntent().getExtras(); // Get the current user's UserID
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
+        else {
+            userID = mAuth.getCurrentUser().getUid();
+        }
         holdings = new HashMap<>();
         stockSymbols = new ArrayList<>();
         stockNames = new ArrayList<>();

@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,12 +35,15 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton mBtnSettingsPage;
-    ImageButton mBtnStocksPage;
-    Button mBtnMainPage;
+    ImageButton SettingsPage;
+    ImageButton StocksPage;
+    //ImageButton LearningPage;
+    ImageButton MainPage;
+    ImageButton Help;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
+    private FirebaseAuth mAuth;
     HashMap<String, Integer> holdings;
     String userID;
     TextView mainGreeting;
@@ -54,9 +58,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBtnSettingsPage = findViewById(R.id.settingsButton);
-        mBtnStocksPage = findViewById(R.id.stockButton);
+        SettingsPage = findViewById(R.id.settingsButton);
+        StocksPage = findViewById(R.id.stockButton);
+        ImageButton Learning_Button = (ImageButton)findViewById(R.id.learningButton);
+        MainPage = findViewById(R.id.homeButton);
+        //HelpPage = findViewById(R.id.stockButton);
+        mWebView =findViewById(R.id.wwStockNews);
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
 
@@ -69,19 +79,46 @@ public class MainActivity extends AppCompatActivity {
         Bundle userDataBundle = getIntent().getExtras();
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
+        else {
+            userID = mAuth.getCurrentUser().getUid();
+        }
 
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
 
         updateBalance();
 
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        TabLayout tabMain = findViewById(R.id.Main_page);
-//        TabLayout tabStock = findViewById(R.id.Stocks_page);
-//        TabLayout tabSetting = findViewById(R.id.Settings_page);
-//        ViewPager viewPag q   er = findViewById(R.id.viewPager);
+
+        StocksPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle userDataBundle = new Bundle();
+                userDataBundle.putString("userID", userID);
+                Intent stocksIntent = new Intent(MainActivity.this, StocksActivity.class);
+                stocksIntent.putExtras(userDataBundle);
+                startActivity(stocksIntent);
+            }
+        });
+
+        SettingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(settingsIntent, 10);
+            }
+        });
+
+        Learning_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, learning_page.class);
+                startActivity(intent);
 
 
-        //        LearningPage.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+//
+//       HelpPage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
@@ -97,34 +134,20 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
+        MainPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle userDataBundle = new Bundle();
-                userDataBundle.putString("userID", userID);
-                Intent stocksIntent = new Intent(MainActivity.this, StocksActivity.class);
-                stocksIntent.putExtras(userDataBundle);
-                startActivity(stocksIntent);
-            }
-        });
-
-        mBtnSettingsPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivityForResult(settingsIntent, 10);
             }
         });
 
-        //adding webView for stock news!
-        mWebView =findViewById(R.id.wwStockNews);
-        mWebView.getSettings().setJavaScriptEnabled(true);
+
         mWebView.setWebViewClient(new WebViewClient() {
 
 
             @Override
             public void onLoadResource(WebView view, String url) {
-                //dont show us website header
                 mWebView.loadUrl("javascript:(function() { " +
                         "var head = document.getElementsByTagName('header')[0];"
                         + "head.parentNode.removeChild(head);" +
@@ -133,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mWebView.loadUrl(url);
-
 
 
     }
@@ -169,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         updateBalance();
     }
+
     @Override
     public void onBackPressed() {
 

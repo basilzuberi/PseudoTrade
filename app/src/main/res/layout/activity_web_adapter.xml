@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="16dp"
-    android:layout_height="match_parent"
-    android:textColor="#FFFFFF">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -20,8 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextAppearance.AppCompat.Title"
-        android:text="Name"
-        android:textColor="#FFFFFF"/>
+        android:text="Name" />
 
     <TextView
         android:id="@+id/txtDes"
@@ -33,7 +31,6 @@
         android:maxLength="50"
         android:singleLine="true"
         style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-        android:text="Des"
-        android:textColor="#FFFFFF"/>
+        android:text="Des" />
 
 </RelativeLayout>
