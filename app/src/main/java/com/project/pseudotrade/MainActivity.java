@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -42,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     String userID;
     TextView mainGreeting;
     TextView mainAccBal;
+    String url ="https://seekingalpha.com/market-news";
     ArrayList<String> stockSymbols;
+    WebView mWebView;
 
 
     @Override
@@ -76,6 +80,23 @@ public class MainActivity extends AppCompatActivity {
 //        TabLayout tabSetting = findViewById(R.id.Settings_page);
 //        ViewPager viewPag q   er = findViewById(R.id.viewPager);
 
+
+        //        LearningPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
+//                startActivityForResult(settingsIntent, 10);
+//            }
+//        });
+//
+//       HelpPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
+//                startActivityForResult(settingsIntent, 10);
+//            }
+//        });
+
         mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +116,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //adding webView for stock news!
+        mWebView =findViewById(R.id.wwStockNews);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient() {
+
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                //dont show us website header
+                mWebView.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementsByTagName('header')[0];"
+                        + "head.parentNode.removeChild(head);" +
+                        "})()");
+            }
+        });
+
+        mWebView.loadUrl(url);
+
+
 
     }
     private void updateBalance() {
@@ -104,7 +144,23 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Double cashBalance = snapshot.getValue(Double.class);
 //                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
-                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
+
+                DatabaseReference userNameRef = mDatabaseReference.child(userID).child("username");
+                userNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //mSharedPreference.getString("LoginEmail","")
+
+                        String username = snapshot.getValue(String.class);
+                        mainGreeting.setText(String.format("Hello, \n%s", username));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 Log.i("MainActivity",String.valueOf(cashBalance));
                 mainAccBal.setText(String.format("$%.2f",(cashBalance)));
             }
@@ -128,5 +184,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateBalance();
+    }
+    @Override
+    public void onBackPressed() {
+
+        //check if WebView can go back, if not use default functionality
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
