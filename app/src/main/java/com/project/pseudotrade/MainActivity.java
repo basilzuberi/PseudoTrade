@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         SettingsPage = findViewById(R.id.settingsButton);
         StocksPage = findViewById(R.id.stockButton);
-        LearningPage = findViewById(R.id.settingsButton);
-        MainPage = findViewById(R.id.stockButton);
+        LearningPage = findViewById(R.id.learningButton);
+        MainPage = findViewById(R.id.homeButton);
         //HelpPage = findViewById(R.id.stockButton);
 
 
@@ -96,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        LearningPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
-//                startActivityForResult(settingsIntent, 10);
-//            }
-//        });
+        LearningPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent learningIntent = new Intent(MainActivity.this, LinkofLists.class);
+                startActivityForResult(learningIntent, 10);
+            }
+        });
 //
 //       HelpPage.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -112,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        MainPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
-                startActivityForResult(settingsIntent, 10);
-            }
-        });
+//        MainPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent mainIntent = new Intent(MainActivity.this, MainActivity.class);
+//                startActivityForResult(mainIntent, 10);
+//            }
+//        });
 
 
     }
