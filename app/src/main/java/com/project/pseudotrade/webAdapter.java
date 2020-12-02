@@ -38,6 +38,16 @@ public class webAdapter extends ArrayAdapter<Webs> {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         convertView = layoutInflater.inflate(mResource,parent,false);
         //view.setBackgroundColor(getColor(R.color. colorPrimaryDark ));
+
+//        View view1 = convertView; //find this line in your code
+//        view1.setBackgroundColor(Color.CYAN); //add this line below
+//
+//        View view = (TextView)super.getView(position, convertView, parent);
+//        if(position!=0){
+//            view.setBackgroundColor(Color.parseColor("#FFD700"));
+//        }
+
+
         ImageView imageView = convertView.findViewById(R.id.image);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtDes = convertView.findViewById(R.id.txtDes);
