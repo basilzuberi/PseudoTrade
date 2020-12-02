@@ -154,24 +154,12 @@ public class MainActivity extends AppCompatActivity {
                 Double cashBalance = snapshot.getValue(Double.class);
 //                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                DatabaseReference ref = mDatabaseReference.child(currentUser.getUid()).child("username");
 
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String mUsername = snapshot.getValue(String.class);
-                        mainGreeting.setText(String.format("Hello, \n%s", mUsername));
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                //mSharedPreference.getString("LoginEmail","")
 
-                    }
-                });
-
-//                //mSharedPreference.getString("LoginEmail","")
-                assert currentUser != null;
 //                mainGreeting.setText(String.format("Hello, \n%s",);
+                mainGreeting.setText(String.format("Hello, \n%s", mSharedPreference.getString("LoginEmail","")));
                 Log.i("MainActivity",String.valueOf(cashBalance));
                 mainAccBal.setText(String.format("$%.2f",(cashBalance)));
             }
