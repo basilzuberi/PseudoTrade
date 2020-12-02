@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton SettingsPage;
     ImageButton StocksPage;
-    ImageButton LearningPage;
+    //ImageButton LearningPage;
     ImageButton MainPage;
     ImageButton Help;
     FirebaseDatabase mDatabase;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         SettingsPage = findViewById(R.id.settingsButton);
         StocksPage = findViewById(R.id.stockButton);
-        LearningPage = findViewById(R.id.learningButton);
+        ImageButton Learning_Button = (ImageButton)findViewById(R.id.Learning);
         MainPage = findViewById(R.id.homeButton);
         //HelpPage = findViewById(R.id.stockButton);
 
@@ -100,11 +100,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LearningPage.setOnClickListener(new View.OnClickListener() {
+        Learning_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent learningIntent = new Intent(MainActivity.this, LinkofLists.class);
-                startActivityForResult(learningIntent, 10);
+
+                Intent intent = new Intent(MainActivity.this, learning_page.class);
+                startActivity(intent);
+
+
             }
         });
 //
@@ -166,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         updateBalance();
     }
+
     @Override
     public void onBackPressed() {
 
