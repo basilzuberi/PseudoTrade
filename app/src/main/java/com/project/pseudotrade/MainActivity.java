@@ -34,9 +34,11 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton mBtnSettingsPage;
-    ImageButton mBtnStocksPage;
-    Button mBtnMainPage;
+    ImageButton SettingsPage;
+    ImageButton StocksPage;
+    ImageButton LearningPage;
+    ImageButton MainPage;
+    ImageButton Help;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
@@ -54,8 +56,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBtnSettingsPage = findViewById(R.id.settingsButton);
-        mBtnStocksPage = findViewById(R.id.stockButton);
+        SettingsPage = findViewById(R.id.settingsButton);
+        StocksPage = findViewById(R.id.stockButton);
+        LearningPage = findViewById(R.id.learningButton);
+        MainPage = findViewById(R.id.homeButton);
+        //HelpPage = findViewById(R.id.stockButton);
+
 
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
@@ -74,14 +80,35 @@ public class MainActivity extends AppCompatActivity {
 
         updateBalance();
 
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        TabLayout tabMain = findViewById(R.id.Main_page);
-//        TabLayout tabStock = findViewById(R.id.Stocks_page);
-//        TabLayout tabSetting = findViewById(R.id.Settings_page);
-//        ViewPager viewPag q   er = findViewById(R.id.viewPager);
 
+        StocksPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle userDataBundle = new Bundle();
+                userDataBundle.putString("userID", userID);
+                Intent stocksIntent = new Intent(MainActivity.this, StocksActivity.class);
+                stocksIntent.putExtras(userDataBundle);
+                startActivity(stocksIntent);
+            }
+        });
 
-        //        LearningPage.setOnClickListener(new View.OnClickListener() {
+        SettingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(settingsIntent, 10);
+            }
+        });
+
+        LearningPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent learningIntent = new Intent(MainActivity.this, LinkofLists.class);
+                startActivityForResult(learningIntent, 10);
+            }
+        });
+//
+//       HelpPage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
@@ -97,43 +124,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
+        MainPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle userDataBundle = new Bundle();
-                userDataBundle.putString("userID", userID);
-                Intent stocksIntent = new Intent(MainActivity.this, StocksActivity.class);
-                stocksIntent.putExtras(userDataBundle);
-                startActivity(stocksIntent);
-            }
-        });
-
-        mBtnSettingsPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivityForResult(settingsIntent, 10);
             }
         });
-
-        //adding webView for stock news!
-        mWebView =findViewById(R.id.wwStockNews);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient() {
-
-
-            @Override
-            public void onLoadResource(WebView view, String url) {
-                //dont show us website header
-                mWebView.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementsByTagName('header')[0];"
-                        + "head.parentNode.removeChild(head);" +
-                        "})()");
-            }
-        });
-
-        mWebView.loadUrl(url);
-
 
 
     }
