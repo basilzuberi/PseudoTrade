@@ -3,6 +3,7 @@ package com.project.pseudotrade;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +37,15 @@ public class webAdapter extends ArrayAdapter<Webs> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         convertView = layoutInflater.inflate(mResource,parent,false);
+        //view.setBackgroundColor(getColor(R.color. colorPrimaryDark ));
         ImageView imageView = convertView.findViewById(R.id.image);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtDes = convertView.findViewById(R.id.txtDes);
         imageView.setImageResource(getItem(position).getImage());
         txtName.setText(getItem(position).getName());
         txtDes.setText(getItem(position).getDes());
+//        View row = super.getView(position, convertView, parent);
+//        row.setBackground(Color.BLACK);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
