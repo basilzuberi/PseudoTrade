@@ -21,4 +21,11 @@
     <string name="app_name">PseudoTrade</string>
     <string name="main_hello"></string>
     <string name="main_hvy_app">Your Account Balance:</string>
+    <string name="sett_new_email">New Email</string>
+    <string name="sett_password">Current Password</string>
+    <string name="sett_conf_chng_email">Are you sure you want to change your email?</string>
+    <string name="sett_canc_chng_email">Are you sure you want to change your email?</string>
+
+
+
 </resources>

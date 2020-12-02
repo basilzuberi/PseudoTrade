@@ -1,29 +1,40 @@
 
 package com.project.pseudotrade;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Set;
 
 
 public class SettingsActivity extends AppCompatActivity {
 
-    SharedPreferences mSharedPreference;
-
+    EditText password;
+    EditText email;
+    String TAG = "SettingsActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Button signoutButton = findViewById(R.id.settings_signout_button);
         Button changeEmailButton = findViewById(R.id.settings_change_email);
+        Button resetButton = findViewById(R.id.settings_reset_data);
 
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +59,82 @@ public class SettingsActivity extends AppCompatActivity {
         changeEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                updateEmail();
             }
         });
 
-        updateEmail();
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetData();
+            }
+        });
+
     }
 
     private void updateEmail() {
-        mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        Log.i("SettingsActivity",user.getEmail());
-//        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),"");
+        password = findViewById(R.id.sett_password);
+        email = findViewById(R.id.sett_email);
+        String pswd = password.getText().toString();
+        String eml = email.getText().toString();
+//
+        if (user != null) {
+            Log.i("pswd != null", String.valueOf(pswd!=""));
+            if (!pswd.equals("") && !eml.equals("") && pswd != null && eml != null && !(user.getEmail().equals("")) && user.getEmail() != null) {
+                Log.i("SettingsActivityInsideUpdateEmail",user.getEmail()+pswd);
+                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), pswd);
+                user.reauthenticate(credential)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    user.updateEmail(eml).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "Email updated");
+                                                Toast.makeText(SettingsActivity.this, "Your email has been changed to: " + eml,Toast.LENGTH_SHORT).show();
+                                                password.setText("");
+                                                email.setText("");
+                                            } else {
+                                                Log.d(TAG, "Error Email not updated");
+                                            }
+                                        }
+                                    });
+//                                    HashMap<String, Object> newEmail = new HashMap<>();
+//                                    newEmail.put("email", eml);
+//                                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("email").updateChildren(newEmail);
+
+                                } else {
+                                    Log.d(TAG, "Error auth failed");
+                                }
+                            }
+                        });
+            } else {
+
+            }
+        }
     }
+    private void resetData() {
+//        FirebaseDatabase mDatabase;
+//        DatabaseReference mDatabaseReference;
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        HashMap<String, Object> placeHolderStock = new HashMap<>();
+        placeHolderStock.put("PlaceholderStock", -1);
 
 
+        // Wasn't working before because getReference("Users") wasn't there
+        FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("holdings").setValue(null);
+        FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("cashBalance").setValue(1000.00);
+        FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("holdings").updateChildren(placeHolderStock);
+        Toast.makeText(SettingsActivity.this, "Your stocks and account have been reset",Toast.LENGTH_SHORT).show();
+
+
+
+
+    }
 }

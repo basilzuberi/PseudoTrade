@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="80dp"
         android:background="#000000"
         android:backgroundTint="#EF6C00 "
@@ -20,7 +20,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_change_email"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sett_password" />
 
     <Button
         android:id="@+id/settings_signout_button"
@@ -36,13 +36,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textView11"
+        android:id="@+id/sett_password"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="57dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="270dp"
         android:layout_marginEnd="57dp"
+        android:hint="@string/sett_password"
         android:password="true"
+        android:textColor="#FF5722"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sett_email"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="205dp"
+        android:layout_marginEnd="57dp"
+        android:hint="@string/sett_new_email"
+        android:password="false"
         android:textColor="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="19dp"
         android:background="#000000"
         android:backgroundTint="#EF6C00 "
@@ -73,7 +88,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/settings_reset_data"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sett_password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
