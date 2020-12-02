@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
+    private FirebaseAuth mAuth;
     HashMap<String, Integer> holdings;
     String userID;
     TextView mainGreeting;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView =findViewById(R.id.wwStockNews);
         mWebView.getSettings().setJavaScriptEnabled(true);
 
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
 
@@ -76,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle userDataBundle = getIntent().getExtras();
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
+        else {
+            userID = mAuth.getCurrentUser().getUid();
+        }
 
         mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE); //open SharedPreference for read
 

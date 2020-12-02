@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +61,7 @@ public class StocksActivity extends AppCompatActivity {
 
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
+    private FirebaseAuth mAuth;
 
     String userID;
     HashMap<String, Integer> holdings;
@@ -82,6 +84,8 @@ public class StocksActivity extends AppCompatActivity {
         StocksPage = findViewById(R.id.stockButton);
         LearningPage = findViewById(R.id.Learning);
         MainPage = findViewById(R.id.homeButton);
+
+        mAuth = FirebaseAuth.getInstance();
 
         StocksPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +176,9 @@ public class StocksActivity extends AppCompatActivity {
         Bundle userDataBundle = getIntent().getExtras(); // Get the current user's UserID
         if (userDataBundle != null)
             userID = userDataBundle.getString("userID");
+        else {
+            userID = mAuth.getCurrentUser().getUid();
+        }
         holdings = new HashMap<>();
         stockSymbols = new ArrayList<>();
         stockNames = new ArrayList<>();
