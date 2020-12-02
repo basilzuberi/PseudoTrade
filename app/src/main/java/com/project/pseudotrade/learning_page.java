@@ -114,6 +114,9 @@ public class learning_page extends AppCompatActivity {
         if (resultCode == 10){
             Log.i("LoggingOutFromLearning","Finished");
             Intent loginIntent = new Intent(learning_page.this, LoginActivity.class);
+//            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finishAffinity();
+//            System.exit(0);
             startActivity(loginIntent);
             finish();
         }

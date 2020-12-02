@@ -401,6 +401,9 @@ public class StocksActivity extends AppCompatActivity {
         if (resultCode == 10){
             Log.i("LoggingOutFromLearning","Finished");
             Intent loginIntent = new Intent(StocksActivity.this, LoginActivity.class);
+//            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finishAffinity();
+//            System.exit(0);
             startActivity(loginIntent);
             finish();
         }

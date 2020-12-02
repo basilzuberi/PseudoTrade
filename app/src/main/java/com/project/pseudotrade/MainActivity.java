@@ -198,8 +198,12 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == 10){
             Log.i("LoggingOutFromMain","Finished");
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+//            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finishAffinity();
+//            System.exit(0);
             startActivity(loginIntent);
             finish();
+
         }
     }
 
