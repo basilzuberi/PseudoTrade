@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
 
     android:orientation="horizontal"
     tools:context=".MainActivity">
@@ -48,33 +47,16 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="151dp"
-        android:layout_height="163dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="460dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/_2457288_removebg_preview_copy_1"
-        android:contentDescription="TODO" />
-
     <ImageButton
         android:id="@+id/question_mark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_help"
-        android:contentDescription="TODO" />
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
 
     <ImageButton
@@ -84,46 +66,45 @@
         android:layout_marginStart="202dp"
         android:layout_marginTop="685dp"
         android:layout_marginEnd="108dp"
+        android:contentDescription="TODO"
         android:padding="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_16_24_pm"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_16_24_pm" />
 
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="113dp"
         android:layout_height="48dp"
-        android:layout_marginStart="303dp"
-        android:layout_marginTop="685dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="684dp"
+        android:contentDescription="TODO"
         android:padding="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm" />
 
     <ImageButton
         android:id="@+id/stockButton"
         android:layout_width="101.5dp"
         android:layout_height="46dp"
+        android:layout_marginStart="101dp"
         android:layout_marginTop="685dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="209dp"
+        android:contentDescription="TODO"
         android:padding="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_38_pm"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_38_pm" />
 
     <ImageButton
         android:id="@+id/learningButton"
@@ -131,44 +112,45 @@
         android:layout_height="46dp"
         android:layout_marginTop="685dp"
         android:layout_marginEnd="310dp"
+        android:contentDescription="TODO"
         android:padding="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_43_pm"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_43_pm" />
 
     <TextView
         android:id="@+id/main_greeting"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="226dp"
+        android:layout_marginEnd="209dp"
+        android:layout_marginBottom="420dp"
         android:text="@string/main_hello"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hvy_stock_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="220dp"
         android:text="@string/main_hvy_app"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_greeting" />
 
@@ -177,9 +159,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/hvy_stock_heading"
         app:layout_constraintTop_toBottomOf="@+id/main_greeting" />
@@ -193,6 +175,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="195dp"
+        android:layout_height="203dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031"
+        app:srcCompat="@drawable/_2457288_removebg_preview_copy_2" />
 
 
     <!--    <ImageView-->
