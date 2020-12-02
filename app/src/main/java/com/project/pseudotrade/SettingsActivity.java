@@ -92,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button signoutButton = findViewById(R.id.settings_signout_button);
         Button changeEmailButton = findViewById(R.id.settings_change_email);
         Button resetButton = findViewById(R.id.settings_reset_data);
+        Button infoButton = findViewById(R.id.settings_about_button);
 
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +120,29 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInfo();
+            }
+        });
+
+    }
+
+    private void showInfo() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+        builder
+                .setMessage("Created by: Amber D'Silva,\nKieara Miranda,\nPatrick Mandarino,\nSri Vinukonda,\nBasil Zuberi\nVerison: 1.0.0")
+
+                .setTitle("ABOUT US")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+
+                .show();
     }
 
     private void updateEmail() {

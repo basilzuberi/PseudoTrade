@@ -8,6 +8,21 @@
     tools:context=".SettingsActivity">
 
     <Button
+        android:id="@+id/settings_about_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#39115C"
+        android:backgroundTint="#BDBDBD"
+        android:text="@string/sett_about_us"
+        android:textColor="#39115C"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_reset_data"
+        app:layout_constraintVertical_bias="0.108" />
+
+    <Button
         android:id="@+id/settings_reset_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,8 +31,8 @@
         android:layout_marginEnd="80dp"
         android:background="#39115C"
         android:backgroundTint="#BDBDBD"
-        android:textColor="#39115C"
         android:text="RESET DATA"
+        android:textColor="#39115C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/settings_change_email"
         app:layout_constraintTop_toBottomOf="@+id/sett_password" />
@@ -84,8 +99,8 @@
         android:layout_marginEnd="19dp"
         android:background="#39115C"
         android:backgroundTint="#BDBDBD"
-        android:textColor="#39115C"
         android:text="Change Email"
+        android:textColor="#39115C"
         app:layout_constraintEnd_toStartOf="@+id/settings_reset_data"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sett_password" />
@@ -104,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_01_pm"/>
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_01_pm" />
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -151,8 +166,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_43_pm" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

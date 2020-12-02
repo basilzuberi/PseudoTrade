@@ -25,5 +25,6 @@
     <string name="sett_password">Current Password</string>
     <string name="sett_conf_chng_email">Are you sure you want to change your email?</string>
     <string name="sett_canc_chng_email">Are you sure you want to change your email?</string>
+    <string name="sett_about_us">ABOUT US</string>
 
 </resources>
