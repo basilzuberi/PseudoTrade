@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="270dp"
         android:layout_marginEnd="80dp"
         android:background="#000000"
         android:backgroundTint="#EF6C00 "
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView11"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="270dp"
         android:layout_marginEnd="19dp"
         android:background="#000000"
         android:backgroundTint="#EF6C00 "
