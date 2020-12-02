@@ -29,14 +29,16 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_01_pm" />
 
     <ImageButton
         android:id="@+id/settingsButton"
-        android:layout_width="113dp"
-        android:layout_height="48dp"
+        android:layout_width="115dp"
+        android:layout_height="46dp"
         android:layout_marginStart="303dp"
         android:layout_marginTop="685dp"
         android:contentDescription="TODO"
@@ -44,8 +46,10 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm" />
 
     <ImageButton
@@ -62,6 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_38_pm" />
 
     <ImageButton
@@ -77,5 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_51_pm"/>
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_51_pm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

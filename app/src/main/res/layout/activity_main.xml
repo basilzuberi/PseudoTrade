@@ -78,7 +78,7 @@
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="113dp"
-        android:layout_height="48dp"
+        android:layout_height="46dp"
         android:layout_marginStart="300dp"
         android:layout_marginTop="684dp"
         android:contentDescription="TODO"
@@ -88,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_11_pm" />
 
     <ImageButton
@@ -108,8 +109,8 @@
 
     <ImageButton
         android:id="@+id/learningButton"
-        android:layout_width="101.5dp"
-        android:layout_height="46dp"
+        android:layout_width="102dp"
+        android:layout_height="49dp"
         android:layout_marginTop="685dp"
         android:layout_marginEnd="310dp"
         android:contentDescription="TODO"
@@ -117,8 +118,10 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/screen_shot_2020_11_24_at_4_15_43_pm" />
 
     <TextView

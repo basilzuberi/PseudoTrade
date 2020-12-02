@@ -124,7 +124,7 @@
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="109dp"
-        android:layout_height="45dp"
+        android:layout_height="47dp"
         android:layout_marginStart="303dp"
         android:layout_marginTop="685dp"
         android:contentDescription="TODO"
