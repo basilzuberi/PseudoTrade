@@ -376,12 +376,14 @@ public class StocksActivity extends AppCompatActivity {
                             getString(R.string.buy_successful_message),
                             BaseTransientBottomBar.LENGTH_LONG);
             buySuccessSnackbar.show();
-            holdings.clear();
-            stockList.clear();
-            stockSymbols.clear();
-            stockNames.clear();
-            stockPrices.clear();
-            stockListAdapter.notifyDataSetChanged();
+            if(stockPrices!=null && holdings!=null && stockSymbols!=null && stockNames!=null && stockListAdapter!=null){
+                holdings.clear();
+                stockList.clear();
+                stockSymbols.clear();
+                stockNames.clear();
+                stockPrices.clear();
+                stockListAdapter.notifyDataSetChanged();
+            }
             GetUserData(mDatabaseReference, true);
         }
         if (resultCode == 2) {
