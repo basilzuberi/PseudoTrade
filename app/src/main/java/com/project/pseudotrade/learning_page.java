@@ -1,9 +1,11 @@
 package com.project.pseudotrade;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -66,7 +68,6 @@ public class learning_page extends AppCompatActivity {
             }
         });
 
-
         ArrayList<Webs> arrayList = new ArrayList<>();
         arrayList.add(new Webs(R.drawable.investopedia,"Investopedia","A Beginner's Guide to Stock Investing"));
         arrayList.add(new Webs(R.drawable.investopedia,"Investopedia","Learn How to Trade the Market in 5 Steps"));
@@ -105,5 +106,16 @@ public class learning_page extends AppCompatActivity {
         webAdapter linkadapt = new webAdapter(this,R.layout.activity_web_adapter,arrayList, urls);
         listView.setAdapter(linkadapt);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 10){
+            Log.i("LoggingOutFromLearning","Finished");
+            Intent loginIntent = new Intent(learning_page.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+        }
     }
 }

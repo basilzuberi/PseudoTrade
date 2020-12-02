@@ -61,13 +61,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        SettingsPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
-                startActivityForResult(settingsIntent, 10);
-            }
-        });
+//        SettingsPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent settingsIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
+//                startActivityForResult(settingsIntent, 10);
+//            }
+//        });
 
         LearningPage.setOnClickListener(new View.OnClickListener() {
             @Override

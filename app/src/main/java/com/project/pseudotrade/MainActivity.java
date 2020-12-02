@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 10){
-            Log.i("BLADEEDBUUBLAH","Finished");
-            Intent settingsIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(settingsIntent);
+            Log.i("LoggingOutFromMain","Finished");
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
             finish();
         }
     }

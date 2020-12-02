@@ -398,6 +398,12 @@ public class StocksActivity extends AppCompatActivity {
             stockListAdapter.notifyDataSetChanged();
             GetUserData(mDatabaseReference, true);
         }
+        if (resultCode == 10){
+            Log.i("LoggingOutFromLearning","Finished");
+            Intent loginIntent = new Intent(StocksActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+        }
     }
 
     private class StockListAdapter extends ArrayAdapter<Stock> {
@@ -456,4 +462,6 @@ public class StocksActivity extends AppCompatActivity {
 
         public double getHoldingsValue() { return this.holdingsValue; }
     }
+
+
 }
