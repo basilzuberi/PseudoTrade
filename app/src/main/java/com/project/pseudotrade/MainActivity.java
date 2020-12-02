@@ -14,15 +14,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,13 +32,10 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton SettingsPage;
-    ImageButton StocksPage;
-    ImageButton LearningPage;
-    ImageButton MainPage;
-    ImageButton Help;
+    ImageButton mBtnSettingsPage;
+    ImageButton mBtnStocksPage;
+    Button mBtnMainPage;
     FirebaseDatabase mDatabase;
-    FirebaseAuth mAuth;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
     HashMap<String, Integer> holdings;
@@ -50,20 +43,15 @@ public class MainActivity extends AppCompatActivity {
     TextView mainGreeting;
     TextView mainAccBal;
     ArrayList<String> stockSymbols;
-    String url ="https://seekingalpha.com/market-news";
-    WebView mWebView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SettingsPage = findViewById(R.id.settingsButton);
-        StocksPage = findViewById(R.id.stockButton);
-        LearningPage = findViewById(R.id.settingsButton);
-        MainPage = findViewById(R.id.stockButton);
-        //HelpPage = findViewById(R.id.stockButton);
-        mAuth = FirebaseAuth.getInstance();
+        mBtnSettingsPage = findViewById(R.id.settingsButton);
+        mBtnStocksPage = findViewById(R.id.stockButton);
 
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
@@ -82,26 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
         updateBalance();
 
-        //adding webView for stock news!
-        mWebView =findViewById(R.id.wwStockNews);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient() {
+//        TabLayout tabLayout = findViewById(R.id.tabLayout);
+//        TabLayout tabMain = findViewById(R.id.Main_page);
+//        TabLayout tabStock = findViewById(R.id.Stocks_page);
+//        TabLayout tabSetting = findViewById(R.id.Settings_page);
+//        ViewPager viewPag q   er = findViewById(R.id.viewPager);
 
-
-            @Override
-            public void onLoadResource(WebView view, String url) {
-                //dont show us website header
-                mWebView.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementsByTagName('header')[0];"
-                        + "head.parentNode.removeChild(head);" +
-                        "})()");
-            }
-        });
-
-        mWebView.loadUrl(url);
-
-
-        StocksPage.setOnClickListener(new View.OnClickListener() {
+        mBtnStocksPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle userDataBundle = new Bundle();
@@ -112,34 +87,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SettingsPage.setOnClickListener(new View.OnClickListener() {
+        mBtnSettingsPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivityForResult(settingsIntent, 10);
-            }
-        });
-
-//        LearningPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
-//                startActivityForResult(settingsIntent, 10);
-//            }
-//        });
-//
-//       HelpPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
-//                startActivityForResult(settingsIntent, 10);
-//            }
-//        });
-
-        MainPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivityForResult(settingsIntent, 10);
             }
         });
@@ -153,13 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Double cashBalance = snapshot.getValue(Double.class);
 //                cashBalanceTextView.setText(String.format("%s $%.2f", R.string.cash_balance, cashBalance));
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-
-
-                //mSharedPreference.getString("LoginEmail","")
-
-//                mainGreeting.setText(String.format("Hello, \n%s",);
-                mainGreeting.setText(String.format("Hello, \n%s", mSharedPreference.getString("LoginEmail","")));
+                mainGreeting.setText("Hello, \n"+mSharedPreference.getString("LoginEmail",""));
                 Log.i("MainActivity",String.valueOf(cashBalance));
                 mainAccBal.setText(String.format("$%.2f",(cashBalance)));
             }
@@ -183,16 +128,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateBalance();
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        //check if WebView can go back, if not use default functionality
-        if (mWebView.canGoBack()) {
-            mWebView.goBack();
-        } else {
-            super.onBackPressed();
-        }
     }
 }
