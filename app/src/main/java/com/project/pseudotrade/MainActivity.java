@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton Learning_Button = (ImageButton)findViewById(R.id.learningButton);
         MainPage = findViewById(R.id.homeButton);
         //HelpPage = findViewById(R.id.stockButton);
-
+        mWebView =findViewById(R.id.wwStockNews);
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
         mDatabase = FirebaseDatabase.getInstance(); //database Refs
         mDatabaseReference = mDatabase.getReference("Users");
@@ -134,6 +135,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(settingsIntent, 10);
             }
         });
+
+
+        mWebView.setWebViewClient(new WebViewClient() {
+
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                mWebView.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementsByTagName('header')[0];"
+                        + "head.parentNode.removeChild(head);" +
+                        "})()");
+            }
+        });
+
+        mWebView.loadUrl(url);
 
 
     }
