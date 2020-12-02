@@ -1,4 +1,4 @@
-
+    
 package com.project.pseudotrade;
 
 import androidx.annotation.NonNull;
@@ -35,6 +35,8 @@ public class SettingsActivity extends AppCompatActivity {
     EditText password;
     EditText email;
     String TAG = "SettingsActivity";
+    SharedPreferences mSharedPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,9 @@ public class SettingsActivity extends AppCompatActivity {
         email = findViewById(R.id.sett_email);
         String pswd = password.getText().toString();
         String eml = email.getText().toString();
-//
+
+        mSharedPreference = getSharedPreferences("LoginActivityShared", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSharedPreference.edit();
         if (user != null) {
             Log.i("pswd != null", String.valueOf(pswd!=""));
             if (!pswd.equals("") && !eml.equals("") && pswd != null && eml != null && !(user.getEmail().equals("")) && user.getEmail() != null) {
@@ -96,8 +100,12 @@ public class SettingsActivity extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 Log.d(TAG, "Email updated");
                                                 Toast.makeText(SettingsActivity.this, "Your email has been changed to: " + eml,Toast.LENGTH_SHORT).show();
+
                                                 password.setText("");
                                                 email.setText("");
+
+                                                editor.putString("LoginEmail",eml);
+                                                editor.apply();
                                             } else {
                                                 Log.d(TAG, "Error Email not updated");
                                             }
