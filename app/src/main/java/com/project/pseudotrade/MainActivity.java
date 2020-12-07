@@ -2,12 +2,14 @@ package com.project.pseudotrade;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -121,10 +123,33 @@ public class MainActivity extends AppCompatActivity {
        HelpPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent helpIntent = new Intent(MainActivity.this,ImageSlider.class);
-                startActivityForResult(helpIntent, 10);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder
+                        .setMessage("Would you like to view the tutorial for PseudoTrade?")
+
+                        .setTitle("TUTORIAL")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent helpIntent = new Intent(MainActivity.this,ImageSlider.class);
+                                startActivityForResult(helpIntent, 10);
+
+                            }
+                        })
+
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+
+
+                        .show();
             }
         });
+
 
         MainPage.setOnClickListener(new View.OnClickListener() {
             @Override
