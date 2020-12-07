@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton StocksPage;
     //ImageButton LearningPage;
     ImageButton MainPage;
-    ImageButton Help;
+    ImageButton HelpPage;
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     SharedPreferences mSharedPreference;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         StocksPage = findViewById(R.id.stockButton);
         ImageButton Learning_Button = (ImageButton)findViewById(R.id.learningButton);
         MainPage = findViewById(R.id.homeButton);
-        //HelpPage = findViewById(R.id.stockButton);
+        HelpPage = findViewById(R.id.question_mark);
         mWebView =findViewById(R.id.wwStockNews);
         mWebView.getSettings().setJavaScriptEnabled(true);
 
@@ -117,22 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//
-//       HelpPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
-//                startActivityForResult(settingsIntent, 10);
-//            }
-//        });
-//
-//       HelpPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent settingsIntent = new Intent(MainActivity.this,LearnAboutStocks.class);
-//                startActivityForResult(settingsIntent, 10);
-//            }
-//        });
+
+       HelpPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent helpIntent = new Intent(MainActivity.this,ImageSlider.class);
+                startActivityForResult(helpIntent, 10);
+            }
+        });
 
         MainPage.setOnClickListener(new View.OnClickListener() {
             @Override

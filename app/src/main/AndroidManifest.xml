@@ -17,6 +17,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
         <activity
+            android:name=".ImageSlider"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
+        <activity
             android:name=".TradeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.LoginActivity" />
