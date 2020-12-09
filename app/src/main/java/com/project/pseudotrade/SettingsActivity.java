@@ -197,23 +197,16 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
     private void resetData() {
-//        FirebaseDatabase mDatabase;
-//        DatabaseReference mDatabaseReference;
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         HashMap<String, Object> placeHolderStock = new HashMap<>();
         placeHolderStock.put("PlaceholderStock", -1);
-
 
         // Wasn't working before because getReference("Users") wasn't there
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("holdings").setValue(null);
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("cashBalance").setValue(1000.00);
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("holdings").updateChildren(placeHolderStock);
         Toast.makeText(SettingsActivity.this, "Your stocks and account have been reset",Toast.LENGTH_SHORT).show();
-
-
-
 
     }
 }
