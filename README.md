@@ -1,7 +1,7 @@
 # PseudoTrade
 An android mobile application that allows users to invest in a simulated stock market to learn about trading and stocks without the risk of losing “real” money. PseufoTrade's goal is to help bridge the gap of financial literacy amongst the youth. 
 
-![main_1](https://user-images.githubusercontent.com/56085084/111418838-cf043600-86be-11eb-9f65-fa009cc7d8cc.jpeg | width=100)
+![main_1](https://user-images.githubusercontent.com/56085084/111418838-cf043600-86be-11eb-9f65-fa009cc7d8cc.jpeg)
 ![stock1](https://user-images.githubusercontent.com/56085084/111418844-d0cdf980-86be-11eb-9848-39cf6903be71.jpeg)
 ![stock2](https://user-images.githubusercontent.com/56085084/111418851-d297bd00-86be-11eb-9cb4-24bbbb74b5b1.jpeg)
 ![stock3](https://user-images.githubusercontent.com/56085084/111418855-d4618080-86be-11eb-92b4-2242007e36fb.jpeg)
